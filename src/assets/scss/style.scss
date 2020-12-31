@@ -1,0 +1,19 @@
+// If you want to override variables do it here
+@import "variables";
+
+// Import styles with default layout.
+@import "~@coreui/coreui-pro/scss/coreui";
+
+// If you want to add something do it here
+@import "custom";
+
+//全局按钮
+button:focus{
+    outline: none !important;
+}
+input:focus{
+    outline: none !important;
+}
+.btn:focus, .btn.focus {
+    box-shadow: none;
+}

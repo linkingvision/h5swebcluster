@@ -1,0 +1,30 @@
+{
+  "id": "2286350",
+  "name": "集群图标",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "4735583",
+      "name": "下拉",
+      "font_class": "xiala",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "9753644",
+      "name": "用户名",
+      "font_class": "yonghuming",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "10944673",
+      "name": "锁子",
+      "font_class": "suozi",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    }
+  ]
+}

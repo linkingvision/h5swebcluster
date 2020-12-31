@@ -1,0 +1,134 @@
+// Here you can add other styles
+// 顶部
+$G_back:#181818;
+$top_back:#202020;
+$top_viceback:#494A4C;
+$header_size:#FFFFFF;
+//左侧栏
+$sidebar_back:#0C0C0C;
+$sidebar_size:#B7B7B7;
+
+.c-app.c-dark-theme{
+    background-color: $G_back;
+    // 顶部
+    .c-header{
+        background-color: $top_back;
+        color: $header_size;
+        .btn{
+            color: $header_size;
+        }
+        .c-header-nav-btn{
+            color: $header_size;
+        }
+        .Cluster_Subheader{
+            background-color: $top_viceback;
+            border: none;
+        }
+    }
+    //左侧栏
+    .c-sidebar{
+        background-color: $sidebar_back;
+        .el-menu{
+            border: none;
+            .el-menu-item{
+                color: $sidebar_size;
+                i{
+                    margin-left: 15%;
+                    margin-right: 10px;
+                    font-size: 16px;
+                }
+            }
+            .el-menu-item.is-active{
+                color: #FFFFFF !important;
+                background-color: $top_back!important;
+                border-right: 2px solid #1DD3FA;
+            }
+        }
+        .el-input__inner{
+            background: #4A4A4C!important;
+            color:rgba(255,255,255,1)!important;
+        }
+    }
+    //dashboard
+    .Cluster_dashboard{
+        .nodepopup{
+            .el-dialog__body{
+                padding: 0;
+            }
+            .el-dialog__header{
+                padding: 0;
+            }
+        }
+        .dashboard_content{
+            .dashboard_table{
+                background: none;
+                border: none;
+                &::before{
+                    height: 0;
+                }
+                .el-table__body-wrapper{
+                    &::-webkit-scrollbar{
+                        display: none;
+                    }
+                }
+                .el-table__body tr:hover>td {
+                    background: #272727!important;
+                }
+                .el-table__body tr.hover-row>td{
+                    background-color: #252525!important;
+                }
+                & td, & th.is-leaf {
+                    color:rgba(255,255,255,1);
+                    border: none!important;
+                    padding: 4px 0;
+                }
+                & th, & tr{
+                    background: none;
+                    border: none!important;
+                }
+            }
+        }
+    }
+
+
+    //组件
+    //弹出框
+    .el-dialog{
+        width: 25%;
+        max-height: 800px;
+        overflow-y: auto;
+        background-color: #262626;
+        // &::-webkit-scrollbar{
+        //     display: none;
+        // }
+        &::-webkit-scrollbar {/*滚动条整体样式*/
+            width: 8px;     /*高宽分别对应横竖滚动条的尺寸*/
+            height: 8px;
+            scrollbar-arrow-color:red;
+        }
+        &::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+            border-radius: 5px;
+            -webkit-box-shadow: inset 0 0 5px rgba(218, 218, 218,0.2);
+            box-shadow: inset 0 0 5px rgba(218, 218, 218,0.2);
+            background: rgba(218, 218, 218,0.2);
+            scrollbar-arrow-color:red;
+        }
+        &::-webkit-scrollbar-track {/*滚动条里面轨道*/
+            -webkit-box-shadow: inset 0 0 5px rgba(218, 218, 218,0.2);
+            box-shadow: inset 0 0 5px rgba(218, 218, 218,0.2);
+            border-radius: 0;
+            background: rgba(218, 218, 218,0.1);
+        }
+        .el-dialog__header{
+            .el-dialog__title{
+                color: $header_size;
+            }
+        }
+        .el-dialog__body{
+            color: $header_size;
+        }
+        .el-form-item__label{
+            color: #FFFFFF;
+        }
+    }
+}

@@ -1,0 +1,50 @@
+// Variable overrides
+// 顶部
+$G_back:#F2F1F1;
+$top_back:#272727;
+$header_size:#FFFFFF;
+$top_viceback:#F7F7F7;
+//左侧栏
+$sidebar_back:#F5F5F5;
+.c-app{
+    // 顶部
+    .c-header{
+        background-color: $top_back;
+        color: #000000;
+        .btn{
+            color: $header_size;
+        }
+        .c-header-nav-btn{
+            color: $header_size !important;
+        }
+        .c-subheader{
+            background-color: $top_viceback;  
+            border: none;
+        }
+    }
+    //左侧栏
+    .Sidebar{  
+        .c-sidebar{
+            background-color: $sidebar_back;
+            .c-sidebar-brand{
+                background: none;
+            }
+            .el-menu{
+                border: none;
+                .el-menu-item{
+                    color: #7A7A7A;
+                    i{
+                        margin-left: 15%;
+                        margin-right: 10px;
+                        font-size: 16px;
+                    }
+                }
+                .el-menu-item.is-active{
+                    color: #000000 !important;
+                    background-color: #EFEFEF!important;
+                    // border-right: 2px solid #1DD3FA;
+                }
+            }
+        }
+    }
+}
