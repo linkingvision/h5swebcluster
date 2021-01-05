@@ -130,7 +130,17 @@
 					<div class="nodepopup_left_top">
 						<div id="container0" style="width: 100%;height: 100%;"></div>
 					</div>
-					<div class="nodepopup_left_buttom"></div>
+					<div class="nodepopup_left_buttom">
+						<div id="nodepopup_number" class="layer03-right-chart">
+							<canvas width="150" height="150"></canvas>
+						</div>
+						<div id="nodepopup_number1" class="layer03-right-chart">
+							<canvas width="150" height="150"></canvas>
+						</div>
+						<div id="nodepopup_number2" class="layer03-right-chart">
+							<canvas width="150" height="150"></canvas>
+						</div>
+					</div>
 				</div>
 				<div class="nodepopup_right">
 					<div class="nodepopup_right_top"></div>
@@ -152,13 +162,18 @@ export default {
 			SrcSummary:null,//节点数
 			devbucket:null,//设备数据
 			nodePopup:false,//节点弹窗
-			data: [0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            data1: [0,0,0,0,0,0,0,0,10,0,50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            data2: [0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+			nodedate:null,//定时器
+			myChart:null,//波动图
+			data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            data1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            data2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 
 			network_in:this.$t("message.dashboard.network_in"),
             network_out:this.$t("message.dashboard.network_out"),
 		}
+	},
+	beforeDestroy(){
+		clearInterval(this.nodedate)
 	},
 	mounted(){
 		this.GetNodeList();
@@ -170,29 +185,40 @@ export default {
         handleClose(){
 			console.log('关闭弹窗')
 			this.nodePopup=false
+			clearInterval(this.nodedate)
         },
 		//节点详情
 		Nodedetails(index,row){
-			console.log(index,row)
-			this.nodePopup=true
-			// return
+			console.log(row)
+			this.data= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            this.data1= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            this.data2= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+			if (this.myChart != null){
+				this.myChart.dispose();
+				this.myChart=null
+			}
 			var _this=this
+			// console.log(index,row)
+			this.nodePopup=true
+			let root=this.$store.state.IPPORT;
+			var url=root+'/cluster/v2/GetNodeInfo?nodeid='+row.strNodeName+''
 			this.$nextTick(()=>{
-				var pieId = document.getElementById('container0');
-				console.log(pieId)
-				if (!pieId){
-					return false;
-				}
-				var myChart = echarts.init(pieId)
-				_this.liunv(myChart);
-
-				//根据窗口的大小变动图表 --- 重点
-				window.onresize = function(){
-					myChart.resize();
-				}
+				// 波动图
+				_this.Nodetiming(url)
+				_this.nodedate=setInterval(()=>{
+					_this.Nodetiming(url)
+				},5000)
 			})
 		},
-		liunv(myChart){
+		liunv(){
+			var pieId = document.getElementById('container0');
+			if (!pieId){
+				return false;
+			}
+			if (this.myChart == null){
+				this.myChart = echarts.init(pieId)
+			}
+			//根据窗口的大小变动图表 --- 重点
             // console.log(":*****")
             // return false;
             var base = +new Date();
@@ -218,11 +244,13 @@ export default {
                     trigger: 'axis',
                     position: function(pt) {
                         return [pt[0], '10%']
-                    },
+					},
+					backgroundColor:"#606060",
+					textStyle:{
+						color:"#FFFFFF"
+					},
+					borderWidth:0,
 					formatter:"{b0}<br />{a0}:{c0}Kbps<br />{a1}:{c1}Kbps <br />{a2}:{c2}%",
-					itemStyle: {
-                        color: '#2932FF'
-                    },
                 },
                 title: {
                     left: 'center',
@@ -241,7 +269,7 @@ export default {
                     },
                 xAxis: {
                     type: 'category',
-                    boundaryGap: false,
+					boundaryGap: false,
                     data: date,
                     axisLine: {
                         show: false
@@ -302,12 +330,66 @@ export default {
                     itemStyle: {
                         color: '#51C3FF'
                     },
-                    data: this.data1
+                    data: this.data2
                 }, ]
             }
             // myChart.clear();
-            myChart.setOption(Option)
-        },
+			this.myChart.setOption(Option)
+			window.onresize = function(){
+				_this.myChart.resize();
+			}
+		},
+		Nodetiming(url){
+			// 圆环
+			var clusterid=$("#nodepopup_number canvas").get(0)
+			var clusterid1=$("#nodepopup_number1 canvas").get(0)
+			var clusterid2=$("#nodepopup_number2 canvas").get(0)
+			if (!clusterid&&!clusterid1&&!clusterid2){
+				return false;
+			}
+			var _this=this
+			
+			_this.$http.get(url).then(result=>{
+				// console.log(result)
+				if(result.status == 200){
+					var byte=result.data.runinfo
+					_this.data.push(byte.nNetworkInK)
+                    _this.data1.push(byte.nNetworkOutK);
+                    _this.data2.push(byte.nCPUUsage);
+                    _this.data.splice(0, 1);
+                    _this.data1.splice(0, 1);
+					_this.data2.splice(0, 1);
+					_this.liunv()
+					var nodedatafor=[{
+						id:clusterid,
+						name:this.$t("message.dashboard.free_space"),
+						percentage:Number(((byte.nTotalSpaceByte-byte.nFreeSpaceByte)/byte.nTotalSpaceByte).toFixed(2)),
+						value:((byte.nFreeSpaceByte)/1024/1024/1024).toFixed(1)+"G"
+					},{
+						id:clusterid1,
+						name:this.$t("message.dashboard.memory"),
+						percentage:Number((byte.nMemoryUsage/100).toFixed(2)),
+						value:(byte.nTotalMemoryByte/1024/1024/1024).toFixed(1)+"G"
+					},{
+						id:clusterid2,
+						name:this.$t("message.dashboard.Storage"),
+						percentage:Number(((byte.nRecordTotalSpaceByte-byte.nRecordFreeSpaceByte)/byte.nRecordTotalSpaceByte).toFixed(2)),
+						value:(byte.nRecordTotalSpaceByte/1024/1024/1024).toFixed(1)+"G"
+					}]
+					
+					// console.log(nodedatafor)
+					for(var i=0; i<nodedatafor.length; i++){
+						_this.Monitoringdetails(nodedatafor[i].id,
+						i,
+						nodedatafor[i].name,
+						nodedatafor[i].percentage,
+						nodedatafor[i].value)
+					}
+				}
+			}).catch(error => {
+				console.log("GetNodeList",error);
+			});
+		},
 		//监控点数
 		GetClusterSrcSummary(){
 			let root=this.$store.state.IPPORT;
@@ -381,7 +463,9 @@ export default {
 					this.Monitoringnumber(clusterid,"1",number,result.data.nCameraTotal);
 					// }
 				}
-			})
+			}).catch(error => {
+                console.log("GetClusterSrcSummary");
+            });
 		},
 		//节点列表
 		GetNodeList(){
@@ -397,7 +481,9 @@ export default {
 					}
 					// console.log(this.NodeData)
 				}
-			})
+			}).catch(error => {
+                console.log("GetNodeList");
+            });
 		},
 		//设备列表
 		GetsrcList(){
@@ -409,11 +495,70 @@ export default {
 					this.SrcData=result.data.src
 					console.log(this.SrcData)
 				}
-			})
+			}).catch(error => {
+                console.log("GetsrcList");
+            });
+		},
+		//详情圆环
+		Monitoringdetails(canvasObj,colorValue,name,percentage,value){
+			canvasObj.height=canvasObj.height;  
+			var ctx = canvasObj.getContext("2d");
+			var circle = {
+				x : 75,    //圆心的x轴坐标值
+				y : 80,    //圆心的y轴坐标值
+				r : 60      //圆的半径
+			};
+
+			//画扇形
+			//ctx.sector(circle.x,circle.y,circle.r,1.5*Math.PI,(1.5+rate*2)*Math.PI);
+			//ctx.fillStyle = colorValue;
+			//ctx.fill();
+
+			ctx.beginPath();
+			ctx.arc(circle.x,circle.y,circle.r,0,Math.PI*2)
+			ctx.lineWidth = 2;
+			ctx.strokeStyle = '#FFFFFF';
+			ctx.stroke();
+			ctx.closePath();
+
+			ctx.beginPath();
+			ctx.arc(circle.x,circle.y,circle.r,1.5*Math.PI,(1.5+percentage*2)*Math.PI)
+			ctx.lineWidth = 8;
+			ctx.lineCap = 'round';
+			var colors=''
+			if(colorValue=='0'){
+				colors=ctx.createLinearGradient(0,0,170,0);
+				colors.addColorStop("0","#3184E9");
+				colors.addColorStop("0.5","#0FCFA8");
+				colors.addColorStop("1.0","#3184E9");
+			}else if(colorValue=='1'){
+				colors=ctx.createLinearGradient(0,0,170,0);
+				colors.addColorStop("0","#EAC344");
+				colors.addColorStop("0.5","#ECE72E");
+				colors.addColorStop("1.0","#EAC344");
+			}else if(colorValue=='2'){
+				colors=ctx.createLinearGradient(0,0,170,0);
+				colors.addColorStop("0","#A63DEC");
+				colors.addColorStop("0.5","#E745E9");
+				colors.addColorStop("1.0","#A63DEC");
+			}
+			ctx.strokeStyle = colors;
+			ctx.stroke();
+			ctx.closePath();
+			ctx.textAlign = 'center' 
+			ctx.fillStyle = '#FFFFFF';
+			ctx.font = '20px Calibri';
+			var ratedata=Math.round(percentage*100)
+			ctx.fillText(ratedata+'%',circle.x,circle.y-12);
+
+			ctx.font = '10px Calibri';
+			ctx.fillText(name,circle.x,circle.y+6);
+			ctx.font = '12px Calibri';
+			ctx.fillText(value,circle.x,circle.y+25);
 		},
 		//监控点 圆环
 		Monitoringnumber(canvasObj,colorValue,rate,number){
-			
+			canvasObj.height=canvasObj.height; 
 			var ctx = canvasObj.getContext("2d");
 			var circle = {
 				x : 75,    //圆心的x轴坐标值
@@ -437,6 +582,7 @@ export default {
 			ctx.arc(circle.x,circle.y,circle.r,1.5*Math.PI,(1.5+rate*2)*Math.PI)
 			ctx.lineWidth = 10;
 			ctx.lineCap = 'round';
+			
 			var colors=''
 			if(colorValue=='1'){
 				colors=ctx.createLinearGradient(0,0,170,0);
@@ -706,6 +852,9 @@ export default {
 					width: 100%;
 					height: 39%;
 					background-color: #2C2C2C;
+					display: flex;
+					justify-content: space-around;
+					align-items: center;
 				}
 			}
 			.nodepopup_right{
