@@ -1,6 +1,5 @@
 <template>
 	<CHeader with-subheader  class="Cluster_header">
-		<!-- <div class="Cluster_header"> -->
 		<CHeaderNav class="mr-auto">
 			<CHeaderNavItem class="px-3">
 				<button
@@ -8,20 +7,20 @@
 				class="c-header-nav-btn"
 				@click="$store.commit('toggle', 'asideShow')"
 				>
-				<!-- <i class="iconfont icon-hanbaobao" style="font-size: 24px;"></i> -->
-				<CIcon size="lg" name="cil-applications-settings" class="mr-2"/>
+				<i class="iconfont iconhanbaobao" style="font-size: 24px;"></i>
+				<!-- <CIcon size="lg" name="cil-applications-settings" class="mr-2"/> -->
 				</button>
 			</CHeaderNavItem>
 		</CHeaderNav>
 		<!-- cluster_logo_red -->
 		<CHeaderNav class="d-md-down-none mr-auto">
 			<img 
-			src="../assets/imgs/cluster_logo_red.svg"
+			src="../assets/imgs/cluster_logo_header.svg"
 			width="300"
 			height="36"
 			alt="cluster Logo"/>
 		</CHeaderNav>
-		<CHeaderNav class="d-md-down-none">
+		<!-- <CHeaderNav class="d-md-down-none">
 			<CHeaderNavItem class="px-3">
 				<button 
 				@click="() => $store.commit('toggle', 'darkMode')" 
@@ -31,31 +30,32 @@
 				<CIcon v-else name="cil-moon"/>
 				</button>
 			</CHeaderNavItem>
-		</CHeaderNav>
-		<!-- <CHeaderNav style="margin-right: 15px;">
-			<router-link :to="{name:'Event'}">
-				<el-badge :value="gEvvalue" :max="999" class="item" data-toggle="dropdown">
-					<i style="color: #fff;" class="iconfont icon-lingdang" type="primary"></i>
-				</el-badge>
-			</router-link>
-		</CHeaderNav>
+		</CHeaderNav> -->
 		<CHeaderNav>
 			<div class="use_user" id="rtc_togg">
 				<el-tooltip content="重启" placement="bottom" effect="dark">
 					<el-button @click="Rebootdialog=true" style="border: none;background: none; color:#fff;line-height: 0.9;padding-right: 10px;" >
-						<i style=" font-size: 18px;color:#ea5252;font-weight: 500;" class="iconfont icon-zhongqi"></i>
+						<i style=" font-size: 18px;color:#ea5252;font-weight: 500;" class="iconfont iconzhongqi"></i>
 					</el-button>
 				</el-tooltip>
 			</div>
 		</CHeaderNav>
+		<CHeaderNav style="margin-right: 15px;">
+			<router-link :to="{name:'Event'}">
+				<el-badge :value="gEvvalue" :max="999" class="item" data-toggle="dropdown">
+					<i style="color: #fff;" class="iconfont iconlingdang" type="primary"></i>
+				</el-badge>
+			</router-link>
+		</CHeaderNav>
+		
 		<CHeaderNav>
 			<CDropdown
 				:caret="false">
 				<template #toggler-content>
-					<i class="iconfont icon-yonghuming"></i> {{user}}
+					<i class="iconfont iconyonghuming"></i> {{user}}
 				</template>
 				<CDropdownItem :to="{name:'Logout'}">
-					<div class="about_ab" v-if="user==''||user==null"><i class="iconfont icon-shijian-"></i>{{$t("message.header.login")}}</div>
+					<div class="about_ab" v-if="!user"><i class="iconfont icon-shijian-"></i>{{$t("message.header.login")}}</div>
 					<div class="about_ab" v-else><i class="iconfont icon-shijian-"></i>{{$t("message.header.logouts")}}</div>
 				</CDropdownItem>
 			</CDropdown>
@@ -64,7 +64,7 @@
 			<CDropdown
 				:caret="false">
 				<template #toggler-content>
-					<i class="iconfont icon-gengduo"></i>
+					<i class="iconfont icongengduo"></i>
 				</template>
 				<CDropdownItem >
 					<div @click="centerDialogVisible=true" class="about_ab"><i class="iconfont icon-prompt"></i>关于</div>
@@ -79,8 +79,8 @@
 					<div class="about_ab"><i class="iconfont icon-zhongqi"></i>重启</div>
 				</CDropdownItem>
 			</CDropdown>
-		</CHeaderNav> -->
-		<!-- </div> -->
+		</CHeaderNav>
+		
 		<!-- <CSubheader class="px-3 Cluster_Subheader">
 			<CBreadcrumbRouter class="border-0 mb-0"/>
 		</CSubheader> -->
@@ -100,9 +100,18 @@ export default {
 		}
 	},
 	mounted(){
-
+		$("#rtc_togg").hide();
+		var _this=this
+		_this.$root.bus.$on('webrtc', function(token){
+			$("#rtc_togg").show();
+		});
 	},
-	menubar:{
+	methods:{
+		// 重启
+		rtctogg(){
+			$("#rtc_togg").hide();
+		},
+		//主题
 		skin(){
 			this.toggle=this.$store.state.darkMode
 			this.$store.commit('toggle', 'darkMode')

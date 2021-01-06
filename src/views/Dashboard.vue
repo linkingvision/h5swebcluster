@@ -94,7 +94,7 @@
 						label="状态">
 							<template slot-scope="scope">
 								<!-- {{scope.row.bOnline}} -->
-								<i :class="(scope.row.bOnline)?'color_red':'color_green'" class="el-icon-s-data"></i>
+								<i :class="(scope.row.bOnline)?'color_green':'color_red'" class="iconfont iconhanbaobao"></i>
 							</template>
 						</el-table-column>
 						<el-table-column
@@ -164,9 +164,9 @@ export default {
 			nodePopup:false,//节点弹窗
 			nodedate:null,//定时器
 			myChart:null,//波动图
-			data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            data1: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            data2: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+			data: [],
+            data1: [],
+            data2: [],
 
 			network_in:this.$t("message.dashboard.network_in"),
             network_out:this.$t("message.dashboard.network_out"),
@@ -204,6 +204,8 @@ export default {
 			var url=root+'/cluster/v2/GetNodeInfo?nodeid='+row.strNodeName+''
 			this.$nextTick(()=>{
 				// 波动图
+				_this.liunv()
+				
 				_this.Nodetiming(url)
 				_this.nodedate=setInterval(()=>{
 					_this.Nodetiming(url)
@@ -229,8 +231,8 @@ export default {
                 var now = new Date((base += oneSecond));
                 date.push(
                     [('0' + now.getSeconds()).slice(-2) + 's']
-                )
-            }
+				)
+			}
             // return false;
             // 绘制图表
             var titlecol
@@ -334,7 +336,7 @@ export default {
                 }, ]
             }
             // myChart.clear();
-			this.myChart.setOption(Option)
+			_this.myChart.setOption(Option)
 			window.onresize = function(){
 				_this.myChart.resize();
 			}
@@ -353,13 +355,22 @@ export default {
 				// console.log(result)
 				if(result.status == 200){
 					var byte=result.data.runinfo
-					_this.data.push(byte.nNetworkInK)
-                    _this.data1.push(byte.nNetworkOutK);
-                    _this.data2.push(byte.nCPUUsage);
-                    _this.data.splice(0, 1);
-                    _this.data1.splice(0, 1);
-					_this.data2.splice(0, 1);
-					_this.liunv()
+					_this.data.shift();
+					_this.data.push(byte.nNetworkInK);
+					_this.data1.shift();
+					_this.data1.push(byte.nNetworkOutK);
+					_this.data2.shift();
+					_this.data2.push(byte.nCPUUsage);
+					
+					_this.myChart.setOption({
+						series: [{
+							data: this.data
+						}, {
+							data: this.data1
+						},{
+							data: this.data2
+						}, ]
+					})
 					var nodedatafor=[{
 						id:clusterid,
 						name:this.$t("message.dashboard.free_space"),
@@ -806,9 +817,11 @@ export default {
 			background-size: 100% 100%;
 			.color_red{
 				color: #FF564F;
+				font-size: 26px;
 			}
 			.color_green{
 				color: #00FF6C;
+				font-size: 26px;
 			}
 			.dashboard_content{
 				width: 100%;

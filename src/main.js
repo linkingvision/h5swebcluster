@@ -33,7 +33,6 @@ const i18n = new VueI18n({
 i18n.locale = store.state.lang
 
 Vue.use(CoreuiVue)
-
 new Vue({
   el: '#app',
   i18n,
@@ -42,6 +41,9 @@ new Vue({
   //CIcon component documentation: https://coreui.io/vue/docs/components/icon
   icons,
   template: '<App/>',
+  data: {
+    bus
+  },
   components: {
     App
   }
