@@ -29,7 +29,7 @@
 				<span slot="title">{{$t("message.left.dashboard")}}</span>
 			</el-menu-item>
 			<el-menu-item index="/Devresources">
-				<span slot="title">¼à¿Øµã</span>
+				<span slot="title">ç›‘æŽ§ç‚¹</span>
 			</el-menu-item>
 		</el-menu> -->
 

@@ -32,6 +32,20 @@ const i18n = new VueI18n({
 })
 i18n.locale = store.state.lang
 
+router.beforeEach((to, from, next) => {
+	if (to.path === '/Login') {
+		next();
+	} else {
+		let token = store.state.token;
+		
+		if (token === 'null' || token === '') {
+			next('/Login');
+		} else {
+			next();
+		}
+	}
+})
+
 Vue.use(CoreuiVue)
 new Vue({
   el: '#app',

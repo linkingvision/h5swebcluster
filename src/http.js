@@ -10,9 +10,10 @@ import router from '@/router'
 // http request 拦截器
 axios.interceptors.request.use(
   config => {
-    // console.log('http request');
+    // console.log('http request',store.state.token);
     if (store.state.token) {
-      config.headers.Authorization = `token ${store.state.token}`
+      config.headers.Authorization = `Bearer ${store.state.token}`
+      // console.log(config)
     }
     return config
   },
@@ -20,7 +21,6 @@ axios.interceptors.request.use(
     return Promise.reject(err)
   }
 )
-
 // http response 拦截器
 axios.interceptors.response.use(
   response => {
@@ -37,15 +37,15 @@ axios.interceptors.response.use(
             // 401 清除token信息并跳转到登录页面
             // console.log('http auth');
             // 只有在当前路由不是登录页面才跳转
-            localStorage.removeItem('mcutoken')
+            sessionStorage.removeItem('clustertoken')
             store.state.token = null
-            localStorage.removeItem('mcuuser')
-            store.state.user = null
-            localStorage.removeItem('mcuroot')
-            store.state.root = null
-            router.currentRoute.path !== 'login' &&
+            // sessionStorage.removeItem('mcuuser')
+            // store.state.user = null
+            // sessionStorage.removeItem('mcuroot')
+            // store.state.root = null
+            router.currentRoute.path !== 'Login' &&
             router.replace({
-              path: '/login',
+              path: '/Login',
               query: { redirect: router.currentRoute.path }
             })
       }

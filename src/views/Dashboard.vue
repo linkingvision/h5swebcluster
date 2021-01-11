@@ -91,13 +91,6 @@
 						height="100%"
 						style="width: 100%">
 						<el-table-column
-						label="状态">
-							<template slot-scope="scope">
-								<!-- {{scope.row.bOnline}} -->
-								<i :class="(scope.row.bOnline)?'color_green':'color_red'" class="iconfont iconhanbaobao"></i>
-							</template>
-						</el-table-column>
-						<el-table-column
 						prop="strName"
 						label="名称">
 						</el-table-column>
@@ -105,8 +98,16 @@
 						prop="nType"
 						label="类型">
 						</el-table-column>
-						<el-table-column>
-							<template slot="header">  <!--  slot-scope="scope" -->
+						<el-table-column
+						label="状态"
+						align="right">
+							<template slot-scope="scope">
+								<!-- {{scope.row.bOnline}} -->
+								<i :class="(scope.row.bOnline)?'color_green':'color_red'" class="iconfont iconhanbaobao"></i>
+							</template>
+						</el-table-column>
+						<!-- <el-table-column>
+							<template slot="header">
 								<div style="width:100%;text-align: right;">
 									<el-button style="" type="text" size="small">更多</el-button>
 								</div>
@@ -116,7 +117,7 @@
 									<el-button type="text" size="small">详情</el-button>
 								</div>
 							</template>
-						</el-table-column>
+						</el-table-column> -->
 					</el-table>
 				</div>
 			</div>
@@ -632,6 +633,7 @@ export default {
     min-width: 993px;
 	min-height: 870px;
 	display: flex;
+	float: left;
 	justify-content: space-between;
 	padding: 20px;
 	.dashboard_left,.dashboard_center,.dashboard_right{
@@ -663,7 +665,7 @@ export default {
 	.dashboard_left{
 		width: 25%;
 		.dashboard_left_top{
-			padding: 20px;
+			// padding: 20px;
 			width: 100%;
 			height: 35%;
 			// border: 1px solid #ffffff;

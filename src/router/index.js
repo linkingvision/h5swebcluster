@@ -118,6 +118,10 @@ export default new Router({
 	]
 })
 
+if(sessionStorage.getItem('clustertoken')){
+	store.state.token=sessionStorage.getItem('clustertoken');
+}
+
 if(localStorage.getItem('Clusterthemetoggle')){
 	console.log('主题',JSON.parse(localStorage.getItem('Clusterthemetoggle')))
 	store.state.darkMode=JSON.parse(localStorage.getItem('Clusterthemetoggle'));

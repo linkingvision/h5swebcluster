@@ -67,6 +67,7 @@ export default {
         };
     },
     mounted(){
+        // console.log(sessionStorage.getItem('clustertoken'))
         $("#prompt").hide();
         $("#prompt1").hide();
     },
@@ -81,12 +82,15 @@ export default {
         login(){
             // return false;
             let root=this.$store.state.IPPORT;
-            var url=root+'/cluster/v2/LoginCluster'
+            var url=root+'/cluster/v2/GetJWTToken?user='+encodeURIComponent(this.name)+'&password='+encodeURIComponent($.md5(this.passw))
             // console.log(root,url)
             this.$http.get(url).then(result=>{
                 console.log(result)
                 if(result.status == 200){
-                    if(result.data.bStatus){
+                    if(result.data.bStatus!=false){
+                        this.$store.state.token=result.data.accessToken
+                        sessionStorage.clustertoken = this.$store.state.token
+                        // console.log(sessionStorage.getItem('clustertoken'))
                         this.$router.push({
                             path: 'Dashboard'
                         })
