@@ -91,10 +91,28 @@ export default {
                         this.$store.state.token=result.data.accessToken
                         sessionStorage.clustertoken = this.$store.state.token
                         // console.log(sessionStorage.getItem('clustertoken'))
-                        this.$router.push({
-                            path: 'Dashboard'
-                        })
+                        // this.$router.push({
+                        //     path: 'Dashboard'
+                        // })
+                        this.loginroot()
                     }
+                }
+            })
+        },
+        loginroot(){
+            let root=this.$store.state.IPPORT;
+            var url=root+'/cluster/v2/GetUserInfo?user='+encodeURIComponent(this.name)
+            this.$http.get(url).then(result=>{
+                if(result.status == 200){
+                    var data=result.data;
+                    console.log(data)
+                    this.$store.state.user=data.strUser
+                    this.$store.state.root=data.strUserType
+                    sessionStorage.clusteruser = this.$store.state.user
+                    sessionStorage.clusterroot=this.$store.state.root
+                    this.$router.push({
+                        path: 'Dashboard'
+                    })
                 }
             })
         },

@@ -47,19 +47,20 @@
 				</el-badge>
 			</router-link>
 		</CHeaderNav>
-		
+		<!-- 用户 -->
 		<CHeaderNav>
 			<CDropdown
 				:caret="false">
 				<template #toggler-content>
 					<i class="iconfont iconyonghuming"></i> {{user}}
 				</template>
-				<CDropdownItem :to="{name:'Logout'}">
+				<CDropdownItem @click="Logout">
 					<div class="about_ab" v-if="!user"><i class="iconfont icon-shijian-"></i>{{$t("message.header.login")}}</div>
 					<div class="about_ab" v-else><i class="iconfont icon-shijian-"></i>{{$t("message.header.logouts")}}</div>
 				</CDropdownItem>
 			</CDropdown>
 		</CHeaderNav>
+		<!-- api -->
 		<CHeaderNav>
 			<CDropdown
 				:caret="false">
@@ -97,16 +98,51 @@ export default {
 			centerDialogVisible:false,//关于
 			Rebootdialog:false,//重启
 			gEvvalue: 0,//事件
+			KeepaToken:null,//更新
 		}
 	},
+	beforeDestroy() {
+		clearInterval(this.KeepaToken)
+    },
 	mounted(){
 		$("#rtc_togg").hide();
 		var _this=this
 		_this.$root.bus.$on('webrtc', function(token){
 			$("#rtc_togg").show();
 		});
+		this.KeepaToken=setInterval(()=>{
+			this.KeepaliveJWTToken();
+		},60*1000*5)
 	},
 	methods:{
+		//退出登录
+		Logout(){
+			let root=this.$store.state.IPPORT;
+			var url=root+'/cluster/v2/RemoveJWTToken'
+			this.$http.get(url).then(result=>{
+                console.log("退出",result)
+				if(result.status== 200){
+					if(result.data.bStatus){
+						clearInterval(this.KeepaToken)
+						this.$router.push({
+							path: 'Logout'
+						})
+					}
+				}
+			}).catch(error => {
+                console.log("GetsrcList");
+            });
+		},
+		//刷新
+		KeepaliveJWTToken(){
+			let root=this.$store.state.IPPORT;
+			var url=root+'/cluster/v2/KeepaliveJWTToken'
+			this.$http.get(url).then(result=>{
+                console.log("更新",result)
+			}).catch(error => {
+                console.log("GetsrcList");
+            });
+		},
 		// 重启
 		rtctogg(){
 			$("#rtc_togg").hide();

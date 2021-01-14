@@ -121,6 +121,12 @@ export default new Router({
 if(sessionStorage.getItem('clustertoken')){
 	store.state.token=sessionStorage.getItem('clustertoken');
 }
+if(sessionStorage.getItem('clusterroot')){
+	store.state.root=sessionStorage.getItem('clusterroot');
+}
+if(sessionStorage.getItem('clusteruser')){
+	store.state.user=sessionStorage.getItem('clusteruser');
+}
 
 if(localStorage.getItem('Clusterthemetoggle')){
 	console.log('主题',JSON.parse(localStorage.getItem('Clusterthemetoggle')))
