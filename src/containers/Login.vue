@@ -82,7 +82,7 @@ export default {
         login(){
             // return false;
             let root=this.$store.state.IPPORT;
-            var url=root+'/cluster/v2/GetJWTToken?user='+encodeURIComponent(this.name)+'&password='+encodeURIComponent($.md5(this.passw))
+            var url=root+'/api/cluster/v2/GetJWTToken?user='+encodeURIComponent(this.name)+'&password='+encodeURIComponent($.md5(this.passw))
             // console.log(root,url)
             this.$http.get(url).then(result=>{
                 console.log(result)
@@ -101,7 +101,7 @@ export default {
         },
         loginroot(){
             let root=this.$store.state.IPPORT;
-            var url=root+'/cluster/v2/GetUserInfo?user='+encodeURIComponent(this.name)
+            var url=root+'/api/cluster/v2/GetUserInfo?user='+encodeURIComponent(this.name)
             this.$http.get(url).then(result=>{
                 if(result.status == 200){
                     var data=result.data;

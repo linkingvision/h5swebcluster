@@ -118,7 +118,7 @@ export default {
 		//退出登录
 		Logout(){
 			let root=this.$store.state.IPPORT;
-			var url=root+'/cluster/v2/RemoveJWTToken'
+			var url=root+'/api/cluster/v2/RemoveJWTToken'
 			this.$http.get(url).then(result=>{
                 console.log("退出",result)
 				if(result.status== 200){
@@ -136,7 +136,7 @@ export default {
 		//刷新
 		KeepaliveJWTToken(){
 			let root=this.$store.state.IPPORT;
-			var url=root+'/cluster/v2/KeepaliveJWTToken'
+			var url=root+'/api/cluster/v2/KeepaliveJWTToken'
 			this.$http.get(url).then(result=>{
                 console.log("更新",result)
 			}).catch(error => {

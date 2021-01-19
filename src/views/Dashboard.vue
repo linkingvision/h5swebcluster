@@ -202,7 +202,7 @@ export default {
 			// console.log(index,row)
 			this.nodePopup=true
 			let root=this.$store.state.IPPORT;
-			var url=root+'/cluster/v2/GetNodeInfo?nodeid='+row.strNodeName+''
+			var url=root+'/api/cluster/v2/GetNodeInfo?nodeid='+row.strNodeName+''
 			this.$nextTick(()=>{
 				// 波动图
 				_this.liunv()
@@ -405,7 +405,7 @@ export default {
 		//监控点数
 		GetClusterSrcSummary(){
 			let root=this.$store.state.IPPORT;
-			var url=root+'/cluster/v2/GetClusterSrcSummary'
+			var url=root+'/api/cluster/v2/GetClusterSrcSummary'
 			this.$http.get(url).then(result=>{
                 console.log("监控点数",result)
                 if(result.status == 200){
@@ -482,7 +482,7 @@ export default {
 		//节点列表
 		GetNodeList(){
 			let root=this.$store.state.IPPORT;
-			var url=root+'/cluster/v2/GetNodeList'
+			var url=root+'/api/cluster/v2/GetNodeList'
 			this.$http.get(url).then(result=>{
                 console.log("节点列表",result)
                 if(result.status == 200){
@@ -500,7 +500,7 @@ export default {
 		//设备列表
 		GetsrcList(){
 			let root=this.$store.state.IPPORT;
-			var url=root+'/cluster/v2/GetsrcList'
+			var url=root+'/api/cluster/v2/GetsrcList'
 			this.$http.get(url).then(result=>{
                 console.log("设备列表",result)
                 if(result.status == 200){
