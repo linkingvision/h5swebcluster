@@ -14,10 +14,10 @@
                             
                             <CForm novalidate @submit.stop.prevent="login">
                                 <CInput placeholder="Username" v-model="name">
-                                    <template #prepend-content><i class="content_icon iconfont iconyonghuming"></i> </template>
+                                    <template #prepend-content><i class="content_icon iconfont icon-yonghuming"></i> </template>
                                 </CInput>
                                 <CInput placeholder="password" type="password" v-model="passw">
-                                    <template #prepend-content><i class="content_icon iconfont iconsuozi"></i> </template>
+                                    <template #prepend-content><i class="content_icon iconfont icon-suozi"></i> </template>
                                 </CInput>
                                 <div class="content_lang">
                                     <div class="lang_size">语言</div>

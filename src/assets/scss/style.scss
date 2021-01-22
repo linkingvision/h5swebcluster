@@ -8,6 +8,9 @@
 @import "custom";
 
 //全局按钮
+.c-app:not(.c-legacy-theme) .btn:not([class*="ghost"]):not([class*="link"]):not([class*="outline"]):not([class*="transparent"]){
+    box-shadow:none!important;
+}
 button:focus{
     outline: none !important;
 }
@@ -15,5 +18,54 @@ input:focus{
     outline: none !important;
 }
 .btn:focus, .btn.focus {
-    box-shadow: none;
+    box-shadow: none!important;
+}
+
+// 顶部高
+.c-header-nav{
+    min-height: 40px;
+}
+.c-header-brand{
+    min-height: 40px;
+}
+
+//dashboard
+.Cluster_dashboard{
+    .nodepopup{
+        .el-dialog__body{
+            padding: 0;
+        }
+        .el-dialog__header{
+            padding: 0;
+        }
+    }
+    .dashboard_content{
+        .dashboard_table{
+            background: none;
+            border: none;
+            &::before{
+                height: 0;
+            }
+            .el-table__body-wrapper{
+                &::-webkit-scrollbar{
+                    display: none;
+                }
+            }
+            .el-table__body tr:hover>td {
+                background: #272727!important;
+            }
+            .el-table__body tr.hover-row>td{
+                background-color: #252525!important;
+            }
+            & td, & th.is-leaf {
+                color:rgba(255,255,255,1);
+                border: none!important;
+                padding: 4px 0;
+            }
+            & th, & tr{
+                background: none;
+                border: none!important;
+            }
+        }
+    }
 }

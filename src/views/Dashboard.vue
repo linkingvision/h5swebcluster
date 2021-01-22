@@ -9,7 +9,7 @@
 						<canvas width="150" height="150"></canvas>
 					</div>
 					<div id="Monitoring_number1" class="layer03-right-chart">
-						<div class="layer03-right-chart-label">监控节点数</div>
+						<div class="layer03-right-chart-label">集群节点数</div>
 						<canvas width="150" height="150"></canvas>
 					</div>
 				</div>
@@ -103,7 +103,7 @@
 						align="right">
 							<template slot-scope="scope">
 								<!-- {{scope.row.bOnline}} -->
-								<i :class="(scope.row.bOnline)?'color_green':'color_red'" class="iconfont iconhanbaobao"></i>
+								<i :class="(scope.row.bOnline)?'color_green':'color_red'" class="iconfont icon-hanbaobao"></i>
 							</template>
 						</el-table-column>
 						<!-- <el-table-column>
@@ -353,7 +353,7 @@ export default {
 			var _this=this
 			
 			_this.$http.get(url).then(result=>{
-				// console.log(result)
+				console.log(result)
 				if(result.status == 200){
 					var byte=result.data.runinfo
 					_this.data.shift();
@@ -683,9 +683,7 @@ export default {
 					margin-top: 40px;
 					.layer03-right-chart-label{
 						text-align: center;
-					}
-					canvas{
-						width:80%;
+						color: #FFFFFF;
 					}
 				}
 			}
@@ -787,6 +785,7 @@ export default {
 					width: 12%;
 					height: 80%;
 					text-align: center;
+					color: #FFFFFF;
 					.sdk_back{
 						width: 100%;
 						height: 78%;

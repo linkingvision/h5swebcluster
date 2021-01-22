@@ -18,6 +18,7 @@
     "babel-polyfill": "^6.26.0",
     "echarts": "^5.0.0",
     "element-ui": "^2.14.1",
+    "qrcodejs2": "0.0.2",
     "vue": "~2.6.11",
     "vue-i18n": "^8.21.0",
     "vue-router": "~3.1.6",

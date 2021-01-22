@@ -1,5 +1,6 @@
 <template>
-	<CHeader with-subheader  class="Cluster_header">
+<div>
+	<CHeader  v-if="this.$route.matched[1].meta.icon=='iconfont icon-11111-copy'" with-subheader  class="Cluster_header">
 		<CHeaderNav class="mr-auto">
 			<CHeaderNavItem class="px-3">
 				<button
@@ -7,43 +8,24 @@
 				class="c-header-nav-btn"
 				@click="$store.commit('toggle', 'asideShow')"
 				>
-				<i class="iconfont iconhanbaobao" style="font-size: 24px;"></i>
+				<i class="iconfont icon-hanbaobao" style="font-size: 24px;"></i>
 				<!-- <CIcon size="lg" name="cil-applications-settings" class="mr-2"/> -->
 				</button>
 			</CHeaderNavItem>
 		</CHeaderNav>
 		<!-- cluster_logo_red -->
-		<CHeaderNav class="d-md-down-none mr-auto">
+		<CHeaderNav class="d-md-down-none mr-auto" style="margin-left: 75px;">
 			<img 
 			src="../assets/imgs/cluster_logo_header.svg"
 			width="300"
 			height="36"
 			alt="cluster Logo"/>
 		</CHeaderNav>
-		<!-- <CHeaderNav class="d-md-down-none">
-			<CHeaderNavItem class="px-3">
-				<button 
-				@click="() => $store.commit('toggle', 'darkMode')" 
-				class="c-header-nav-btn"
-				>
-				<CIcon v-if="$store.state.darkMode" name="cil-sun"/>
-				<CIcon v-else name="cil-moon"/>
-				</button>
-			</CHeaderNavItem>
-		</CHeaderNav> -->
-		<CHeaderNav>
-			<div class="use_user" id="rtc_togg">
-				<el-tooltip content="重启" placement="bottom" effect="dark">
-					<el-button @click="Rebootdialog=true" style="border: none;background: none; color:#fff;line-height: 0.9;padding-right: 10px;" >
-						<i style=" font-size: 18px;color:#ea5252;font-weight: 500;" class="iconfont iconzhongqi"></i>
-					</el-button>
-				</el-tooltip>
-			</div>
-		</CHeaderNav>
+
 		<CHeaderNav style="margin-right: 15px;">
 			<router-link :to="{name:'Event'}">
 				<el-badge :value="gEvvalue" :max="999" class="item" data-toggle="dropdown">
-					<i style="color: #fff;" class="iconfont iconlingdang" type="primary"></i>
+					<i style="color: #fff;" class="iconfont icon-lingdang" type="primary"></i>
 				</el-badge>
 			</router-link>
 		</CHeaderNav>
@@ -52,7 +34,7 @@
 			<CDropdown
 				:caret="false">
 				<template #toggler-content>
-					<i class="iconfont iconyonghuming"></i> {{user}}
+					<i class="iconfont icon-yonghuming"></i> {{user}}
 				</template>
 				<CDropdownItem @click="Logout">
 					<div class="about_ab" v-if="!user"><i class="iconfont icon-shijian-"></i>{{$t("message.header.login")}}</div>
@@ -65,19 +47,13 @@
 			<CDropdown
 				:caret="false">
 				<template #toggler-content>
-					<i class="iconfont icongengduo"></i>
+					<i class="iconfont icon-gengduo"></i>
 				</template>
 				<CDropdownItem >
 					<div @click="centerDialogVisible=true" class="about_ab"><i class="iconfont icon-prompt"></i>关于</div>
 				</CDropdownItem>
-				<CDropdownItem href="doc/api.html">
-					<div class="about_ab"><i class="iconfont icon-category"></i>API</div>
-				</CDropdownItem>
 				<CDropdownItem @click="skin">
 					<div class="about_ab"><i class="iconfont icon-huanfu"></i>主题</div>
-				</CDropdownItem>
-				<CDropdownItem @click="Rebootdialog=true">
-					<div class="about_ab"><i class="iconfont icon-zhongqi"></i>重启</div>
 				</CDropdownItem>
 			</CDropdown>
 		</CHeaderNav>
@@ -86,6 +62,75 @@
 			<CBreadcrumbRouter class="border-0 mb-0"/>
 		</CSubheader> -->
 	</CHeader>
+
+	<CHeader v-else with-subheader>
+		<CHeaderNav>
+			<CHeaderNavItem class="px-3">
+				<button
+				in-header
+				class="c-header-nav-btn"
+				@click="$store.commit('toggle', 'asideShow')"
+				>
+					<i class="iconfont icon-hanbaobao" style="font-size: 24px;"></i>
+				</button>
+			</CHeaderNavItem>
+		</CHeaderNav>
+		<CHeaderNav class="d-md-down-none mr-auto" >
+			<img 
+			src="../assets/imgs/cluster_logo_header.svg"
+			width="190"
+			height="26"
+			alt="H5S Logo"/>
+		</CHeaderNav>
+
+		<CHeaderNav style="margin-right: 15px;">
+			<router-link :to="{name:'Event'}">
+				<el-badge :value="gEvvalue" :max="999" class="item" data-toggle="dropdown">
+					<i style="color: #fff;" class="iconfont icon-lingdang" type="primary"></i>
+				</el-badge>
+			</router-link>
+		</CHeaderNav>
+		<CHeaderNav>
+			<CDropdown
+				:caret="false">
+				<template #toggler-content>
+					<i class="iconfont icon-yonghuming"></i> {{user}}
+				</template>
+				<CDropdownItem :to="{name:'Logout'}">
+					<div class="about_ab" v-if="user==''||user==null"><i class="iconfont icon-shijian-"></i>{{$t("message.header.login")}}</div>
+					<div class="about_ab" v-else><i class="iconfont icon-shijian-"></i>{{$t("message.header.logouts")}}</div>
+				</CDropdownItem>
+			</CDropdown>
+		</CHeaderNav>
+		<CHeaderNav>
+			<CDropdown
+				:caret="false">
+				<template #toggler-content>
+					<i class="iconfont icon-gengduo"></i>
+				</template>
+				<CDropdownItem >
+					<div @click="centerDialogVisible=true" class="about_ab"><i class="iconfont icon-prompt"></i>关于</div>
+				</CDropdownItem>
+				<CDropdownItem @click="skin">
+					<div class="about_ab"><i class="iconfont icon-huanfu"></i>主题</div>
+				</CDropdownItem>
+			</CDropdown>
+		</CHeaderNav>
+	
+		<CSubheader class="px-4">
+			<!-- 修改面包屑导航 -->
+			<CHeaderNav>
+				<div class="header_size">
+					<i :class="this.$route.matched[1].meta.icon"> </i>
+					{{this.$route.matched[1].meta.name}}
+				</div>
+			</CHeaderNav>
+		<!-- <CBreadcrumbRouter class="border-0 mb-0"/> -->
+		</CSubheader>
+		
+	</CHeader>
+</div>
+
 </template>
 
 <script>
@@ -96,7 +141,6 @@ export default {
 		return {
 			user:this.$store.state.user,//neme
 			centerDialogVisible:false,//关于
-			Rebootdialog:false,//重启
 			gEvvalue: 0,//事件
 			KeepaToken:null,//更新
 		}
@@ -143,10 +187,6 @@ export default {
                 console.log("GetsrcList");
             });
 		},
-		// 重启
-		rtctogg(){
-			$("#rtc_togg").hide();
-		},
 		//主题
 		skin(){
 			this.toggle=this.$store.state.darkMode
@@ -159,6 +199,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.header_size{
+  font-size: 14px;
+  i{
+    font-size: 14px;
+    margin-right: 10px;
+  }
+}
+.c-subheader{
+	display: flex;
+	justify-content: space-between;
+}
+.about_ab i{
+	margin-right: 10px;
+}
 .Cluster_header{
 	height: 56px;
 	min-height: 56px;

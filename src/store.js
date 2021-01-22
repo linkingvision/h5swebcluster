@@ -15,6 +15,17 @@ const state = {
   //session
   IPPORT:'',
   WSROOT:'',
+  //实时播放
+  clusterliveviewrtc:'WS',
+  liveviewadd:[],
+  liveplay:{
+    token:null,
+    streamprofile:null,
+    name:null,
+    label:null,
+    vid:null,
+    viewparameter:null
+  }
 }
 
 const mutations = {

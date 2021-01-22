@@ -23,6 +23,8 @@ const TheContainer = () => import('@/containers/TheContainer')
 
 // Views
 const Dashboard = () => import('@/views/Dashboard')
+const Liveview = () => import('@/views/Liveview')
+
 
 const Event = () => import('@/views/dashboard/Event')
 const Devlist = () => import('@/views/dashboard/Devlist')
@@ -51,17 +53,27 @@ export default new Router({
 					name: 'Dashboard',
 					component: Dashboard,
 					meta: {
-						title: 'Dashboard',
+						title: '/Dashboard',
 						name:i18n.tc("message.left.dashboard"),
 						icon:'iconfont icon-11111-copy',
 						type: 'Operator'  // 是否需要判断是否登录,这里是需要判断
 					}
 				},{
+					path: 'Liveview',
+					name: 'Liveview',
+					component: Liveview,
+					meta: {
+						title: '/Liveview',
+						name:i18n.tc("message.live.liveview"),
+						icon:'iconfont icon-shipin1',
+						type: 'Operator'  // 是否需要判断是否登录,这里是需要判断
+					},
+				},{
 					path: 'Event',
 					name: 'Event',
 					component: Event,
 					meta: {
-						title: 'Event',
+						title: '/Event',
 						name:i18n.tc("message.left.dashboard"),
 						icon:'iconfont icon-11111-copy',
 						type: 'Operator'  // 是否需要判断是否登录,这里是需要判断
@@ -71,7 +83,7 @@ export default new Router({
 					name: 'Nodemonitoring',
 					component: Nodemonitoring,
 					meta: {
-						title: 'Nodemonitoring',
+						title: '/Nodemonitoring',
 						name:i18n.tc("message.left.dashboard"),
 						icon:'iconfont icon-11111-copy',
 						type: 'Operator'  // 是否需要判断是否登录,这里是需要判断
@@ -81,7 +93,7 @@ export default new Router({
 					name: 'Devlist',
 					component: Devlist,
 					meta: {
-						title: 'Devlist',
+						title: '/Devlist',
 						name:i18n.tc("message.left.dashboard"),
 						icon:'iconfont icon-11111-copy',
 						type: 'Operator'  // 是否需要判断是否登录,这里是需要判断
@@ -91,7 +103,7 @@ export default new Router({
 					name: 'Devresources',
 					component: Devresources,
 					meta: {
-						title: 'Devresources',
+						title: '/Devresources',
 						name:i18n.tc("message.left.dashboard"),
 						icon:'iconfont icon-11111-copy',
 						type: 'Operator'  // 是否需要判断是否登录,这里是需要判断
@@ -128,6 +140,9 @@ if(sessionStorage.getItem('clusteruser')){
 	store.state.user=sessionStorage.getItem('clusteruser');
 }
 
+if(localStorage.getItem('clusterliveviewrtc')){
+	store.state.clusterliveviewrtc=localStorage.getItem('clusterliveviewrtc');
+}
 if(localStorage.getItem('Clusterthemetoggle')){
 	console.log('主题',JSON.parse(localStorage.getItem('Clusterthemetoggle')))
 	store.state.darkMode=JSON.parse(localStorage.getItem('Clusterthemetoggle'));

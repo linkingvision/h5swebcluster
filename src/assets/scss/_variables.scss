@@ -4,8 +4,13 @@ $G_back:#F2F1F1;
 $top_back:#272727;
 $header_size:#FFFFFF;
 $top_viceback:#F7F7F7;
+//实时播放
+$liveview_lback:#FFFFFF;
 //左侧栏
 $sidebar_back:#F5F5F5;
+//组件
+$collapse_size:#000000;
+$collapse_header:#E5E5E5;
 .c-app{
     // 顶部
     .c-header{
@@ -23,28 +28,211 @@ $sidebar_back:#F5F5F5;
         }
     }
     //左侧栏
-    .Sidebar{  
-        .c-sidebar{
-            background-color: $sidebar_back;
-            .c-sidebar-brand{
-                background: none;
+    .c-sidebar{
+        background-color: $sidebar_back;
+        .c-sidebar-brand{
+            background: none !important;
+            .Sidebar_title{
+                i{
+                    color: #000;
+                }
             }
-            .el-menu{
+        }
+        .el-menu{
+            border: none;
+            .el-menu-item{
+                color: #7A7A7A;
+                i{
+                    margin-left: 15%;
+                    margin-right: 10px;
+                    font-size: 16px;
+                    // color: #000;
+                }
+            }
+            .el-menu-item.is-active{
+                color: #000000 !important;
+                background-color: #EFEFEF!important;
+                // border-right: 2px solid #1DD3FA;
+            }
+        }
+    }
+    //实时播放页面
+    .liveview{
+        .liveview_left{
+            background-color: $liveview_lback;
+            .el-input__inner{ //输入框
+                background-color:#ECEDED;
                 border: none;
-                .el-menu-item{
-                    color: #7A7A7A;
-                    i{
-                        margin-left: 15%;
-                        margin-right: 10px;
-                        font-size: 16px;
+                border-radius: 30px;
+            }
+            .liveview_colltitle{
+                display: flex;
+                .liveview_titleicon{
+                    width: 35px;
+                    height: 35px;
+                    background: url("~@/views/liveview/imgs/liveview_titleiconb.png") no-repeat;
+                    background: {
+                        size: 100%;
+                        
+                    };
+                }
+                .liveview_titleicon1{
+                    width: 35px;
+                    height: 35px;
+                    background: url("~@/views/liveview/imgs/liveview_titleicon1b.png") no-repeat;
+                    background: {
+                        size: 100%;
+                        
+                    };
+                }
+                .liveview_titleicon2{
+                    width: 35px;
+                    height: 35px;
+                    background: url("~@/views/liveview/imgs/liveview_titleicon2b.png") no-repeat;
+                    background: {
+                        size: 100%;
+                        
+                    };
+                }
+            }
+        }
+        .liveview_right{
+            .videoColor {
+                background-color: #494A4B;
+                .palace{
+                    border:1px solid #373737;
+                }
+            }
+            .liveview_group{
+                .liveview_function{
+                    .el-input__inner{
+                        // background: none;
+                        border: 1px solid #9A9A9A;
                     }
                 }
-                .el-menu-item.is-active{
-                    color: #000000 !important;
-                    background-color: #EFEFEF!important;
-                    // border-right: 2px solid #1DD3FA;
+                button{
+                    padding: 0;
+                    color: #333333;
+                }
+                .liveview_butt{
+                    button{
+                        padding: 0;
+                        border: none;
+                        background: none;
+                        color: #333333;
+                        font-size: 30px;
+                    }
+                }
+                .liveview_butts{
+                    button{
+                        padding: 0;
+                        border: none;
+                        background: none;
+                        color: #333333;
+                        font-size: 24px;
+                    }
                 }
             }
+            .liveview_right_but{
+                .form_butt{
+                    color: #000000;
+                    border: 1px solid #000000;
+                }
+            }
+        }
+    }
+    .liveplay{
+        // 音频
+        .Audio_slider{
+            .el-slider__runway{
+                height: 4px;
+                .el-slider__button-wrapper{
+                    .el-slider__button{
+                        width: 10px;
+                        height: 10px;
+                        border: 1px solid #409EFF;
+                    }
+                }
+            }
+        }
+    }
+    .Aside{
+        .c-sidebar{
+            .c-sidebar-brand{
+                background: none;
+                .Aside_title{
+                    color: #000;
+                    opacity: 0.4;
+                }
+            }
+            .Aside_content_buttom{
+                .liveview_left_input{
+                    .el-input__inner{
+                        width: 70%;
+                        border: none;
+                        background-color: #DBDBDB;
+                        border-radius: 50px;
+                        color: #ffffff;
+                    }
+                }
+            }
+        }
+        .up_you_but{
+            & div:nth-child(2){
+                button{
+                    color: #000;
+                }
+            }
+        }
+    }
+    //收缩
+    .el-collapse{
+        border: none;
+        background: none;
+        .el-collapse-item__header{
+            color: $collapse_size;
+            background-color: $collapse_header;
+            border: none;
+            padding: 0 7px;
+            font-size: 15px;
+        }
+        .el-collapse-item__wrap{
+            background: none;
+            border-bottom: none;
+            .el-collapse-item__content{
+                color: $collapse_size;
+
+            }
+        }
+    }
+    //树形
+    .el-tree{
+        background: none !important;
+        color: $collapse_size;
+        font-size: 14px;
+        .el-tree-node.is-current>.el-tree-node__content{
+            background: none !important;
+            color: #3ABBFE;
+            overflow: auto;
+            width: 100%;
+            &::-webkit-scrollbar{
+                display: none;
+            }
+        }
+        .el-tree-node__content{
+            background: none !important;
+            &:hover{
+                background: none !important;
+                color: #3ABBFE;
+            }
+        }
+        .el-checkbox__inner{
+            // background-color: #2E2E2E !important;
+            border-radius: 50px !important;
+        }
+        .el-checkbox__input.is-checked .el-checkbox__inner,.el-checkbox__input.is-indeterminate .el-checkbox__inner{
+            background-color: #3277FF !important;
+            border-color: rgba(255,255,255,1) !important;
         }
     }
 }
