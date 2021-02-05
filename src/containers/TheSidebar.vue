@@ -28,6 +28,10 @@
 				<i class="iconfont icon-shipin1"></i>
 				<span slot="title">{{$t("message.live.liveview")}}</span>
 			</el-menu-item>
+			<el-menu-item index="/Replay/Advancepb">
+				<i class="iconfont icon-bofang2"></i>
+				<span slot="title">{{$t("message.left.playback")}}</span>
+			</el-menu-item>
 		</el-menu>
 
 	</CSidebar>

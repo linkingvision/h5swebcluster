@@ -15,7 +15,7 @@
                             <div>{{$t("message.live.device")}}</div>
                             <div class="liveview_colltitle">
                                 <div class="liveview_titleicon1" @click.stop="Refresh('device')"></div>
-                                <div @click.stop="headswitch1" class="liveview_titleicon"></div>
+                                <!-- <div @click.stop="headswitch1" class="liveview_titleicon"></div> -->
                             </div>
                         </div>
                     </template>
@@ -130,10 +130,12 @@ export default {
             }
 		}
     },
+    created(){
+    },
 	mounted(){
-        this.updateUI();
         // this.addWaterMarker();
         this.GetNodeList();
+        this.updateUI();
         // this.cloudDevice()
 	},
 	methods:{
@@ -158,7 +160,7 @@ export default {
                                 this.data.push({
                                     token:item.strNodeId,
                                     label:item.strNodeName,
-                                    iconclass:"iconfont icon-kaiqishexiangtou1",
+                                    iconclass:"iconfont icon-node",
                                     children:[]
                                 })
                                 this.GetsrcList(item.strNodeId)
@@ -182,7 +184,7 @@ export default {
                     var srcGroup = [];
                     for(var i=0; i< data.src.length; i++){
                         var item = data.src[i];
-                        console.log(item)
+                        // console.log(item)
                         // 主副流
                         var node=[{
                         token : item['strToken'],
@@ -615,7 +617,7 @@ export default {
                 this.contentHeight = $(document.body).height()*0.4;
             }else
             {
-                this.contentHeight = $(document.body).height()*0.82;
+                this.contentHeight = window.screen.height*0.74;
             }
             $('div[name="flex"]').height(this.contentHeight / this.rows);
             //this.contentHeight = $(document.body).height()*0.8;
@@ -858,10 +860,10 @@ export default {
         }
         .el-collapse{
             .el-collapse-item{
-                height: 40vh;
+                height: 82vh;
                 .el-collapse-item__wrap{
                     .el-collapse-item__content{
-                        height: 35vh;
+                        height: 79vh;
                         padding: 0 10px;
                         overflow: auto;
                         // ::-webkit-scrollbar{

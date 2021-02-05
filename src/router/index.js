@@ -24,12 +24,15 @@ const TheContainer = () => import('@/containers/TheContainer')
 // Views
 const Dashboard = () => import('@/views/Dashboard')
 const Liveview = () => import('@/views/Liveview')
-
+const Replay = () => import('@/views/Replay')
 
 const Event = () => import('@/views/dashboard/Event')
 const Devlist = () => import('@/views/dashboard/Devlist')
 const Devresources = () => import('@/views/dashboard/Devresources')
 const Nodemonitoring = () => import('@/views/dashboard/Nodemonitoring')
+
+const Advancepb = () => import('@/views/replay/Advancepb')
+const Archive = () => import('@/views/replay/Archive')
 
 
 Vue.use(Router)
@@ -108,6 +111,39 @@ export default new Router({
 						icon:'iconfont icon-11111-copy',
 						type: 'Operator'  // 是否需要判断是否登录,这里是需要判断
 					}
+				},{
+					path: 'Replay',
+					name: 'Replay',
+					component: Replay,
+					meta: {
+						title: '/Replay/Advancepb',
+						name:i18n.tc("message.left.playback"),
+						icon:'iconfont icon-bofang1',
+						type: 'Operator'  // 是否需要判断是否登录,这里是需要判断
+					},
+					children: [
+						{
+							path: 'Advancepb',
+							name: 'Advancepb',
+							component: Advancepb,
+							meta: {
+								title: 'Advancepb',
+								name:i18n.tc("message.left.AdvancePB"),
+								icon:'iconfont icon-bofang1',
+								type: 'Operator'  // 是否需要判断是否登录,这里是需要判断
+							},
+						},{
+							path: 'Archive',
+							name: 'Archive',
+							component: Archive,
+							meta: {
+								title: 'Archive',
+								name:i18n.tc("message.left.AdvancePB"),
+								icon:'iconfont icon-bofang1',
+								type: 'Operator'  // 是否需要判断是否登录,这里是需要判断
+							},
+						}
+					]
 				},
 			]
 		},{

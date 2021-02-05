@@ -185,6 +185,198 @@ $collapse_header:#E5E5E5;
             }
         }
     }
+    //回放
+    .playback{
+        .playback_snap_zuo{
+            background-color: #FFFFFF;
+            overflow: auto;
+            .snap_zuo_input{
+                padding: 10px 10px;
+                .el-input__inner{
+                    background: #ECEDED;
+                    border: none;
+                    border-radius: 30px;
+                }
+            }
+            .snap_zuo_title{
+                background:#EFEFEF;
+            }
+        }
+        .playback_snap_you{
+            background-color: #FAFAFA;
+            .el-input__inner{
+                background: none;
+                border: 1px solid #ECEDED;
+                height: 30px;
+                line-height: 30px;
+            }
+            .el-input__icon{
+                line-height: 30px;
+            }
+            .snap_you_topbutt{
+                .snap_you_topbutt1{
+                    background: #3ABBFE;
+                    border: none;
+                    color: #FFFFFF;
+                    padding: 8px 20px;
+                }
+                .snap_you_topbutt2{
+                    background: none;
+                    border: 1px solid #3ABBFE;
+                    color: #000000;
+                    padding: 7px 20px;
+                }
+            }
+            .snap_you_bottom{
+                background-color: #F2F1F1;
+                .button_edi button{
+                    color: $header_size;
+                }
+                .snap_you_lable_butt{
+                    button{
+                        color: #606266;
+                    }
+                }
+            }
+            .tab{
+                .mode_Choice{
+                    .back_Choice{
+                        .back_Choice1{
+                            color: RGBA(242, 241, 241, 0.8);
+                            background:rgba(0,0,0,0.8);
+                        }
+                        .back_zi{
+                            color:rgba(52, 52, 52, 1);
+                        }
+                    }
+                }
+                .function_butt{
+                    .fixed_input{
+                        .el-input__inner{
+                            color: #3ABBFE !important;
+                        }
+                    }
+                    .button_resume{
+                        color: $top_back;
+                    }
+                    
+                    .layout1x1 {
+                        border: none;
+                        background: none;
+                        background: url('~@/views/liveview/imgs/liveview_1_bai.png') center;
+                        background-repeat: no-repeat;
+                        background-size: 32px 32px;
+                        color: #000;
+                        height: 20px;
+                        width: 20px;
+                        padding: 0;
+                    }
+                    .layout2x2 {
+                        border: none;
+                        background: none;
+                        background: url('~@/views/liveview/imgs/liveview_4_bai.png') center;
+                        background-repeat: no-repeat;
+                        background-size: 32px 32px;
+                        color: #000;
+                        height: 20px;
+                        width: 20px;
+                        padding: 0;
+                    }
+                    .layoutfull {
+                        background: url('~@/views/liveview/imgs/liveview_full_bai.png') center;
+                        background-repeat: no-repeat;
+                        background-size: 20px 20px;
+                        color: #000;
+                        height: 20px;
+                        width: 20px;
+                        padding: 0;
+                    }
+                }
+            }
+            .content_name{
+                color: $header_size;
+            }
+            .up_you_but{
+                
+                & div:nth-child(2){
+                    button{
+                        color: #000;
+                    }
+                }
+            }
+                    
+        }
+    }
+    //顶部关于弹窗
+    & ~ .plugin_adout{
+        .el-dialog{
+            background: url('~@/assets/imgs/Header_on.png') center no-repeat;
+            min-height: 326px;
+            background-size: cover;
+            .el-dialog__body{
+                .about_flex{
+                    min-height: 226px;
+                    text-align: center;
+                    color: #000000;
+                    display: flex;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    div{
+                        width: 100%;
+                    }
+                    .adout_img{
+                        width: 320px;
+                        height: 60px;
+                    }
+                }
+            }
+        }
+    }
+
+    //组件
+    // 表格
+    .el-table {
+        min-height: 80vh;
+        background: none;
+        .el-table__empty-block{
+            background: none{
+                repeat:no-repeat;
+                position:center
+            }
+            // background-image: url('~@/assets/imgs/setting_tober1.png');
+            background-size: 10%;
+        }
+        .el-table__header th, .el-table__header tr{
+            background-color: #DBDBDB !important;
+            color: #000;
+        }
+    }
+    /* 分页 */
+    .el-pagination {
+        li{
+            background: none!important;
+        }
+        button{
+            background: none!important;
+        }
+    }
+    //选项卡
+    .top_el_menu{
+        .el-menu.el-menu--horizontal{
+            border: none;
+            .el-menu-item{
+                height: auto;
+                border: none;
+                line-height:35px;
+                border-top: 2px solid #A2E0F9;
+                &.is-active{
+                    border: none;
+                    border-top: 2px solid #26B4FC;
+                    background-color: #FFFFFF !important;
+                }
+            }
+        }
+    }
     //收缩
     .el-collapse{
         border: none;

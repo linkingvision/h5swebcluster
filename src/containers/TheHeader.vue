@@ -1,5 +1,23 @@
 <template>
 <div>
+	<el-dialog
+		class="plugin_adout"
+		:visible.sync="centerDialogVisible"
+		width="25%"
+		append-to-body
+		center>
+		<div class="about_flex">
+			<div v-if="$store.state.darkMode">
+				<img class="adout_img" src="../assets/imgs/cluster_logo_header.svg"/>
+			</div>
+			<div v-else>
+				<img class="adout_img" src="../assets/imgs/cluster_logo_header.svg"/>
+			</div>
+			<div style="margin: 20px 0 10px 20px; text-align: center;">
+				<!-- <div>{{$t("message.dashboard.version")}}: {{information.strVersion}}</div> -->
+			</div>
+		</div>
+	</el-dialog>
 	<CHeader  v-if="this.$route.matched[1].meta.icon=='iconfont icon-11111-copy'" with-subheader  class="Cluster_header">
 		<CHeaderNav class="mr-auto">
 			<CHeaderNavItem class="px-3">
@@ -49,8 +67,8 @@
 				<template #toggler-content>
 					<i class="iconfont icon-gengduo"></i>
 				</template>
-				<CDropdownItem >
-					<div @click="centerDialogVisible=true" class="about_ab"><i class="iconfont icon-prompt"></i>关于</div>
+				<CDropdownItem @click="centerDialogVisible=true">
+					<div class="about_ab"><i class="iconfont icon-prompt"></i>关于</div>
 				</CDropdownItem>
 				<CDropdownItem @click="skin">
 					<div class="about_ab"><i class="iconfont icon-huanfu"></i>主题</div>
@@ -108,8 +126,8 @@
 				<template #toggler-content>
 					<i class="iconfont icon-gengduo"></i>
 				</template>
-				<CDropdownItem >
-					<div @click="centerDialogVisible=true" class="about_ab"><i class="iconfont icon-prompt"></i>关于</div>
+				<CDropdownItem @click="centerDialogVisible=true">
+					<div class="about_ab"><i class="iconfont icon-prompt"></i>关于</div>
 				</CDropdownItem>
 				<CDropdownItem @click="skin">
 					<div class="about_ab"><i class="iconfont icon-huanfu"></i>主题</div>
