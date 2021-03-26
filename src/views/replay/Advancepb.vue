@@ -319,14 +319,17 @@ export default {
                                 children:node,
                                 disabled_me:false};
 
-                        if(!item['bOnline'])
-                            newItem['iconclass'] = 'iconfont icon-kaiqishexiangtou';
+                        if(!item['bOnline']){
+                          newItem['iconclass'] = 'iconfont icon-kaiqishexiangtou';
+                        }else{
+                          newItem['iconclass'] = 'iconfont  icon-kaiqishexiangtou1';
+                        }
 
-                        if(item['nType'] == 'H5_CLOUD')
-                            newItem['iconclass'] = 'iconfont  icon-kaiqishexiangtou1';
+                        // if(item['nType'] == 'H5_CLOUD')
+                        //     newItem['iconclass'] = 'iconfont  icon-kaiqishexiangtou1';
 
-                        if(item['bRec'] == true)
-                                newItem['iconclass2'] = 'iconfont icon-radioboxfill none';
+                        // if(item['bRec'] == true)
+                        //         newItem['iconclass2'] = 'iconfont icon-radioboxfill none';
 
                     srcGroup.push(newItem);
                     }

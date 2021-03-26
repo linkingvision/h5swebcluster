@@ -70,8 +70,8 @@
             <button class="iconfont icon-picfill" @click="DoSnapshotWeb"></button>
             <button class="iconfont icon-camerafill" @click="DoSnapshot"></button>
             <button class="iconfont icon-videofill" @click="DoManualRecordStart"></button>
-            <button class="iconfont icon-radioboxfill" @click="DoManualRecordStop"></button>
-            <button class="ptz_id_show iconfont icon-yuntai" @click="PtzControlShow"></button> -->
+            <button class="iconfont icon-radioboxfill" @click="DoManualRecordStop"></button>-->
+            <button class="ptz_id_show iconfont icon-yuntai" @click="PtzControlShow"></button> 
             <button class="iconfont icon-full" @click="FullScreen"></button>
             <button class="iconfont icon-roundclosefill" @click="CloseVideo('close')"></button>
         </div>
