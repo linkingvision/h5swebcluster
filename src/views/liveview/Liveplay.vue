@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="liveplay_butt">
-            <!-- <CDropdown
+            <CDropdown
                 class="fw_butt"
                 style=""
                 color="link"
@@ -70,7 +70,7 @@
             <button class="iconfont icon-picfill" @click="DoSnapshotWeb"></button>
             <button class="iconfont icon-camerafill" @click="DoSnapshot"></button>
             <button class="iconfont icon-videofill" @click="DoManualRecordStart"></button>
-            <button class="iconfont icon-radioboxfill" @click="DoManualRecordStop"></button>-->
+            <button class="iconfont icon-radioboxfill" @click="DoManualRecordStop"></button>
             <button class="ptz_id_show iconfont icon-yuntai" @click="PtzControlShow"></button> 
             <button class="iconfont icon-full" @click="FullScreen"></button>
             <button class="iconfont icon-roundclosefill" @click="CloseVideo('close')"></button>
@@ -230,7 +230,6 @@ export default {
                 {
                     return;
                 }
-                
                 this.PlayVideo(token.token,token.streamprofile,token.label,token.name);
                 this.tokenshou=token.token;
                 this.streamprofileInformation=token.streamprofile
@@ -256,7 +255,7 @@ export default {
         },
         //码率
         Information(){
-            // console.log('124')
+            console.log('124')
             var $container = $("#"+this.h5id);
             var $controlsin = $container.children(".information");
             var cors=this.cols*this.rows;
@@ -563,6 +562,7 @@ export default {
                 return;
             }
             var tokenshou=this.currtoken
+            console.log(tokenshou);
             var conf2 = {
                 protocol: window.location.protocol, //http: or https:
                 host: window.location.host, //localhost:8080
@@ -570,8 +570,6 @@ export default {
                 token:tokenshou,
                 session:this.$store.state.token //session got from login
             };
-            
-            
             var Shoutwheat=this.Shoutwheatclass;
             if(Shoutwheat=="icon-voicefill1"){
                 console.log("大开");
@@ -689,7 +687,6 @@ export default {
             let _this =this;
             var record = "token=" + this.currtoken + "&duration=300";
             console.log("record cmd", record);
-
             var url = this.$store.state.IPPORT + "/api/v1/ManualRecordStop?" + record  + "&session="+ this.$store.state.token;
 
             this.$http.get(url).then(result => {
@@ -711,6 +708,10 @@ export default {
         },
         //全屏
         FullScreen(){
+            if (this.h5handler == undefined)
+            {
+                return;
+            }
             var elem = $("#"+this.h5id).get(0);
             //var elem = $("#videoPanel");
             if (
@@ -764,22 +765,28 @@ export default {
             }
         },
         PtzControlShow(event){
+            
+            // if (this.h5handler == undefined)
+            // {
+            //     return;
+            // }
             this.Presetdata=[];
             var cors=this.cols*this.rows;
             if(cors>9){
                 return false
             }
+         
 		   //url
-           var url = this.$store.state.IPPORT + "/api/v1/GetPresets?token="+this.tokenshou+"&session="+ this.$store.state.token;
+            var url = this.$store.state.IPPORT + "/api/cluster/v2/ClusterPtzGetPresets?token="+this.tokenshou;
             //重组
+            console.log(url);
             this.$http.get(url).then(result=>{
+                console.log(result);
                 if(result.status == 200){
-                    if(result.bStatus==false){
+                    if(result.data.bStatus==false){
                         return false;
                     }else{
                         var data=result.data;
-
-                        console.log(data)
                         for(var i = 0; i < data.preset.length; i++){
                             var newItem ={
                                 strName : data.preset[i].strName,
@@ -883,7 +890,7 @@ export default {
             var ptzcmd = "token=" + this.currtoken + "&action=" + action + "&speed="+this.Preset_value+"";
             console.log("ptzcmd", ptzcmd);
 
-            var url = this.$store.state.IPPORT + "/api/v1/Ptz?" + ptzcmd  + "&session="+ this.$store.state.token;
+            var url = this.$store.state.IPPORT + "/api/cluster/v2/ClusterPtz?" + ptzcmd  + "&session="+ this.$store.state.token;
 
             this.$http.get(url).then(result => {
                 console.log(result);
