@@ -107,9 +107,9 @@
                                     <el-button size="mini" type="button" class="iconfont icon-history" @click="Refresh(scope.row)"></el-button>
                                 </el-tooltip>
                                     <el-progress type="circle" :percentage="scope.row.percentage" :stroke-width="2" :width="35"></el-progress>
-                                <el-tooltip class="item" effect="dark" :content="content.content3" placement="top-start">
+                                <!-- <el-tooltip class="item" effect="dark" :content="content.content3" placement="top-start">
                                     <a :href="scope.row.url" :download="scope.row.urlto"><el-button size="mini" class="iconfont icon-download"></el-button></a>
-                                </el-tooltip>
+                                </el-tooltip> -->
                                 <el-tooltip class="item" effect="dark" :content="content.content4" placement="top-start">
                                     <el-button size="mini" @click="Refresh1(scope.$index, scope.row)" data-toggle="modal" data-target="#myModal" class="iconfont icon-play"></el-button>
                                 </el-tooltip>
@@ -539,12 +539,13 @@ export default {
                     // console.log(nodes[l].token,nodes[l].label)
                     var label=nodes[l].label
                     // return false
-                    var url = this.$store.state.IPPORT + "/api/v1/SearchDeviceRecordByTime?token="+nodes[l].token+"&start="+srartdate+"&end="+enddate+"&session="+ this.$store.state.token;
+                    var url = this.$store.state.IPPORT + "/api/cluster/v2/SearchClusterRecordByTime?token="+nodes[l].token+"&start="+srartdate+"&end="+enddate+"&session="+ this.$store.state.token;
                     // console.log(url);
                     //return false;
                     await this.$http.get(url).then(result=>{
                         if(result.status == 200){
-                            this.$message('Query successful');
+                                this.$message({message:'Query successful',duration:1000});
+                            //     this.$message('Query successful');
                             var data=result.data;
                             console.log(data,label)
                             for(var i=0;i<data.record.length;i++){
