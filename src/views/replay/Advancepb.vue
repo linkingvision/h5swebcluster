@@ -270,7 +270,7 @@ export default {
                                 this.data.push({
                                     token:item.strNodeId,
                                     label:item.strNodeName,
-                                    iconclass:"iconfont icon-node",
+                                    iconclass:"iconfont iconapartment",
                                     children:[]
                                 })
                                 this.GetsrcList(item.strNodeId)

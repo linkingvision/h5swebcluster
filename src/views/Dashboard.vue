@@ -664,6 +664,7 @@ export default {
 	
 	.dashboard_left{
 		width: 25%;
+		height: 865px;
 		.dashboard_left_top{
 			// padding: 20px;
 			width: 100%;

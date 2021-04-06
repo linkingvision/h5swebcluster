@@ -41,7 +41,7 @@
 		</CHeaderNav>
 
 		<CHeaderNav style="margin-right: 15px;">
-			<router-link :to="{name:'Event'}">
+			<router-link :to="{}">
 				<el-badge :value="gEvvalue" :max="999" class="item" data-toggle="dropdown">
 					<i style="color: #fff;" class="iconfont icon-lingdang" type="primary"></i>
 				</el-badge>
@@ -100,9 +100,8 @@
 			height="26"
 			alt="H5S Logo"/>
 		</CHeaderNav>
-
 		<CHeaderNav style="margin-right: 15px;">
-			<router-link :to="{name:'Event'}">
+			<router-link :to="{name:''}">
 				<el-badge :value="gEvvalue" :max="999" class="item" data-toggle="dropdown">
 					<i style="color: #fff;" class="iconfont icon-lingdang" type="primary"></i>
 				</el-badge>

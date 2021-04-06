@@ -6,11 +6,18 @@
 		colorScheme="light"
 		overlaid
 	>
-		<CSidebarClose @click.native="$store.commit('toggle', 'asideShow')"/>
+		<!-- <CSidebarClose @click.native="$store.commit('toggle', 'asideShow')"/>
 		<CSidebarBrand class="d-md-down-none">
 			<div class="Sidebar_title">
         		<i class="iconfont icon-hanbaobao"></i>
 			</div>
+		</CSidebarBrand> -->
+		<CSidebarBrand class="d-md-down-none">
+			<img 
+				:src="require('../assets/imgs/logo.svg')"
+				width="180"
+				height="26"
+				alt="H5S Logo"/>
 		</CSidebarBrand>
 		<!-- <i class="iconfont icon-11111-copy"></i> -->
 		<el-menu
