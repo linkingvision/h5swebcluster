@@ -16,12 +16,11 @@
 			</div>
 			<div class="dashboard_left_bottom">
 				<div class="dashboard_title">节点监控</div>
-				<div class="dashboard_content">
+				<div class="dashboard_content" style="height:500px;overflow: hidden;">
 					<el-table
 						class="dashboard_table"
 						:data="NodeData"
 						:header-cell-style="{background:'#19191A'}"
-						height="100%"
 						style="width: 100%">
 						<el-table-column
 						prop="strNodeId"
@@ -33,14 +32,14 @@
 						</el-table-column>
 						<el-table-column
 							min-width="100">
-							<template slot="header">  <!--  slot-scope="scope" -->
+							<template slot="header">
 								<div style="width:100%;text-align: right;">
 									<el-button style="" type="text" size="small">更多</el-button>
 								</div>
 							</template>
 							<template slot-scope="scope">
 								<div style="width:100%;text-align: right;" >
-									<el-button type="text" size="small" @click="Nodedetails(scope.$index,scope.row)">详情</el-button>
+									<el-button type="text" size="small" @click="Nodedetails(scope.row,scope.$index)">详情</el-button>
 								</div>
 							</template>
 						</el-table-column>
@@ -52,7 +51,7 @@
 		<div class="dashboard_center">
 			<div class="dashboard_center_top">
 				<!-- <div class="dashboard_content">上</div> -->
-				<router-link :to="{name:'Event'}">
+				<!-- <router-link :to="{name:'Event'}">
 					<div class="center_top_event">报警统计</div>
 				</router-link>
 				<router-link :to="{name:'Devlist'}">
@@ -63,7 +62,25 @@
 				</router-link>
 				<router-link :to="{name:'Devresources'}">
 					<div class="center_top_devres">设备资源</div>
-				</router-link>
+				</router-link> -->
+				<div class="nodepopup_ontent">
+					<div class="nodepopup_left">
+						<div class="nodepopup_left_top">
+							<div id="container0" style="width: 100%;height: 100%;"></div>
+						</div>
+						<div class="nodepopup_left_buttom">
+							<div id="nodepopup_number" class="layer03-right-chart">
+								<canvas width="150" height="150"></canvas>
+							</div>
+							<div id="nodepopup_number1" class="layer03-right-chart">
+								<canvas width="150" height="150"></canvas>
+							</div>
+							<div id="nodepopup_number2" class="layer03-right-chart">
+								<canvas width="150" height="150"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="dashboard_center_bottom">
 				<div class="dashboard_title1">设备资源</div>
@@ -83,16 +100,22 @@
 		<div class="dashboard_right">
 			<div class="dashboard_right_top">
 				<div class="dashboard_title">设备列表</div>
-				<div class="dashboard_content">
+				<div class="dashboard_content" :style=" SrcData==0 ?'overflow:hidden;' : 'overflow:auto;'">
 					<el-table
 						class="dashboard_table"
 						:data="SrcData"
-						:header-cell-style="{background:'#19191A'}"
 						height="100%"
-						style="width: 100%">
+						:header-cell-style="{background:'#19191A'}"
+						>
+						<el-table-column width='40'>
+							<template slot-scope="scope">
+								<i :class="(scope.row.bOnline)?'color_green1':'color_red1'" class="iconfont iconshebei"></i>
+							</template>
+						</el-table-column>
 						<el-table-column
 						prop="strName"
 						label="名称">
+						<template scope="scope"><span class="color_blue">{{scope.row.strName}}</span></template>
 						</el-table-column>
 						<el-table-column
 						prop="nType"
@@ -102,8 +125,7 @@
 						label="状态"
 						align="right">
 							<template slot-scope="scope">
-								<!-- {{scope.row.bOnline}} -->
-								<i :class="(scope.row.bOnline)?'color_green':'color_red'" class="iconfont icon-hanbaobao"></i>
+								<span :class="(scope.row.bOnline)?'color_green':'color_red'">{{(scope.row.bOnline)?'在线':'离线'}}</span>
 							</template>
 						</el-table-column>
 						<!-- <el-table-column>
@@ -125,7 +147,7 @@
 				<div class="dashboard_title">报警统计</div>
 			</div>
 		</div>
-		<el-dialog :before-close="handleClose" class="nodepopup" width="55%" :visible.sync="nodePopup">
+		<!-- <el-dialog :before-close="handleClose" class="nodepopup" width="55%" :visible.sync="nodePopup">
             <div class="nodepopup_ontent">
 				<div class="nodepopup_left">
 					<div class="nodepopup_left_top">
@@ -148,7 +170,7 @@
 					<div class="nodepopup_right_buttom"></div>
 				</div>
 			</div>
-        </el-dialog>
+        </el-dialog> -->
 	</div>
 </template>
 
@@ -189,7 +211,7 @@ export default {
 			clearInterval(this.nodedate)
         },
 		//节点详情
-		Nodedetails(index,row){
+		Nodedetails(row,index){
 			console.log(row)
 			this.data= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
             this.data1= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -491,7 +513,8 @@ export default {
 						var clusterid=$("#Monitoring_number1 canvas").get(0)
 						this.Monitoringnumber(clusterid,"2",1,result.data.node.length);
 					}
-					// console.log(this.NodeData)
+					console.log(this.NodeData[0]);
+					this.Nodedetails(this.NodeData[0]);
 				}
 			}).catch(error => {
                 console.log("GetNodeList");
@@ -627,7 +650,7 @@ export default {
 <style lang="scss" scoped>
 .Cluster_dashboard{
     width: 100%;
-    height: 100%;
+    height: 99%;
     background: url("~@/views/imgs/Cluster_dashboard_back.png") no-repeat center;
     background-size: cover;
     min-width: 993px;
@@ -664,7 +687,6 @@ export default {
 	
 	.dashboard_left{
 		width: 25%;
-		height: 865px;
 		.dashboard_left_top{
 			// padding: 20px;
 			width: 100%;
@@ -712,63 +734,63 @@ export default {
 			width: 100%;
 			height: 66%;
 			// border: 1px solid #ffffff;
-			background: url("~@/views/imgs/dashboard_back_img2.png") no-repeat center center;
+			// background: url("~@/views/imgs/dashboard_back_img2.png") no-repeat center center;
 			background-size: 55% 75%;
 			background-position-y: 100%;
 			position: relative;
 			font-family: Source Han Sans CN;
 			font-weight: 800;
-			.center_top_event,.center_top_devlist,.center_top_node,.center_top_devres{
-				color: #FFF045;
-			}
-			.center_top_event{
-				width: 97px;
-				height: 106px;
-				font-size: 13px;
-				background: url("~@/views/imgs/dashboard_back_imgevent.png") no-repeat center center;
-				background-size: 100% 100%;
-				position: absolute;
-				left: 25%;
-				top: 10%;
-				text-align: center;
-				line-height: 106px;
-			}
-			.center_top_devlist{
-				width: 97px;
-				height: 106px;
-				font-size: 13px;
-				background: url("~@/views/imgs/dashboard_back_imgevent.png") no-repeat center center;
-				background-size: 100% 100%;
-				position: absolute;
-				right: 28%;
-				top: 5%;
-				text-align: center;
-				line-height: 106px;
-			}
-			.center_top_node{
-				width: 136px;
-				height: 156px;
-				font-size: 16px;
-				background: url("~@/views/imgs/dashboard_back_imgnode.png") no-repeat center center;
-				background-size: 100% 100%;
-				position: absolute;
-				left: 10%;
-				top: 35%;
-				text-align: center;
-				line-height: 156px;
-			}
-			.center_top_devres{
-				width: 136px;
-				height: 156px;
-				font-size: 16px;
-				background: url("~@/views/imgs/dashboard_back_imgnode.png") no-repeat center center;
-				background-size: 100% 100%;
-				position: absolute;
-				right: 10%;
-				top: 28%;
-				text-align: center;
-				line-height: 156px;
-			}
+			// .center_top_event,.center_top_devlist,.center_top_node,.center_top_devres{
+			// 	color: #FFF045;
+			// }
+			// .center_top_event{
+			// 	width: 97px;
+			// 	height: 106px;
+			// 	font-size: 13px;
+			// 	background: url("~@/views/imgs/dashboard_back_imgevent.png") no-repeat center center;
+			// 	background-size: 100% 100%;
+			// 	position: absolute;
+			// 	left: 25%;
+			// 	top: 10%;
+			// 	text-align: center;
+			// 	line-height: 106px;
+			// }
+			// .center_top_devlist{
+			// 	width: 97px;
+			// 	height: 106px;
+			// 	font-size: 13px;
+			// 	background: url("~@/views/imgs/dashboard_back_imgevent.png") no-repeat center center;
+			// 	background-size: 100% 100%;
+			// 	position: absolute;
+			// 	right: 28%;
+			// 	top: 5%;
+			// 	text-align: center;
+			// 	line-height: 106px;
+			// }
+			// .center_top_node{
+			// 	width: 136px;
+			// 	height: 156px;
+			// 	font-size: 16px;
+			// 	background: url("~@/views/imgs/dashboard_back_imgnode.png") no-repeat center center;
+			// 	background-size: 100% 100%;
+			// 	position: absolute;
+			// 	left: 10%;
+			// 	top: 35%;
+			// 	text-align: center;
+			// 	line-height: 156px;
+			// }
+			// .center_top_devres{
+			// 	width: 136px;
+			// 	height: 156px;
+			// 	font-size: 16px;
+			// 	background: url("~@/views/imgs/dashboard_back_imgnode.png") no-repeat center center;
+			// 	background-size: 100% 100%;
+			// 	position: absolute;
+			// 	right: 10%;
+			// 	top: 28%;
+			// 	text-align: center;
+			// 	line-height: 156px;
+			// }
 		}
 		.dashboard_center_bottom{
 			width: 100%;
@@ -819,11 +841,23 @@ export default {
 			background-size: 100% 100%;
 			.color_red{
 				color: #FF564F;
-				font-size: 26px;
+				font-size: 14px;
 			}
 			.color_green{
 				color: #00FF6C;
-				font-size: 26px;
+				font-size: 14px;
+			}
+			.color_red1{
+				color: #FF564F;
+				font-size: 19px;
+			}
+			.color_green1{
+				color: #00FF6C;
+				font-size: 19px;
+			}
+			.color_blue{
+				color: #409eff;
+				font-size: 14px;
 			}
 			.dashboard_content{
 				width: 100%;
@@ -844,53 +878,52 @@ export default {
 		}
 	}
 	//弹窗
-	.nodepopup{
-		.nodepopup_ontent{
+	.nodepopup_ontent{
+		width: 100%;
+		height: 100%;
+		min-height: 50vh;
+		display: flex;
+		justify-content: space-between;
+		.nodepopup_left{
 			width: 100%;
-			height: 50vh;
-			min-height: 50vh;
+			height: 100%;
 			display: flex;
-			justify-content: space-between;
-			.nodepopup_left{
-				width: 60%;
-				height: 100%;
-				display: flex;
-				flex-wrap: wrap;
-				align-content: space-between;
-				.nodepopup_left_top{
-					padding-top:40px;
-					width: 100%;
-					height: 60%;
-					background-color: #2C2C2C;
-				}
-				.nodepopup_left_buttom{
-					width: 100%;
-					height: 39%;
-					background-color: #2C2C2C;
-					display: flex;
-					justify-content: space-around;
-					align-items: center;
-				}
+			flex-wrap: wrap;
+			align-content: space-between;
+			.nodepopup_left_top{
+				padding-top:40px;
+				width: 100%;
+				height: 60%;
+				background-color: #202020;
 			}
-			.nodepopup_right{
-				width: 39%;
-				height: 100%;
+			.nodepopup_left_buttom{
+				width: 100%;
+				height: 39%;
+				background-color: #202020;
 				display: flex;
-				flex-wrap: wrap;
-				align-content: space-between;
-				.nodepopup_right_top{
-					width: 100%;
-					height: 79%;
-					background-color: #2C2C2C;
-				}
-				.nodepopup_right_buttom{
-					width: 100%;
-					height: 20%;
-					background-color: #2C2C2C;
-				}
+				justify-content: space-around;
+				align-items: center;
+				float: left;
 			}
-
 		}
+		.nodepopup_right{
+			width: 39%;
+			height: 100%;
+			display: flex;
+			flex-wrap: wrap;
+			align-content: space-between;
+			.nodepopup_right_top{
+				width: 100%;
+				height: 79%;
+				background-color: #2C2C2C;
+			}
+			.nodepopup_right_buttom{
+				width: 100%;
+				height: 20%;
+				background-color: #2C2C2C;
+			}
+		}
+
 	}
 }
 </style>

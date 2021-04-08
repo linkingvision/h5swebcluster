@@ -17,7 +17,9 @@ const state = {
   WSROOT:'',
   //实时播放
   clusterliveviewrtc:'WS',
+  watermarkstring:"linkingvision",
   liveviewadd:[],
+  liveviewrtc:'WS',
   liveplay:{
     token:null,
     streamprofile:null,

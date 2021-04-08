@@ -6,19 +6,19 @@
 		colorScheme="light"
 		overlaid
 	>
-		<!-- <CSidebarClose @click.native="$store.commit('toggle', 'asideShow')"/>
-		<CSidebarBrand class="d-md-down-none">
+		<!-- <CSidebarClose @click.native="$store.commit('toggle', 'asideShow')"/> -->
+		<!-- <CSidebarBrand class="d-md-down-none">
 			<div class="Sidebar_title">
         		<i class="iconfont icon-hanbaobao"></i>
 			</div>
 		</CSidebarBrand> -->
 		<CSidebarBrand class="d-md-down-none">
-			<img 
-				:src="require('../assets/imgs/logo.svg')"
-				width="180"
-				height="26"
-				alt="H5S Logo"/>
-		</CSidebarBrand>
+				<img 
+					:src="require('../assets/imgs/logo.svg')"
+					width="180"
+					height="26"
+					alt="H5S Logo"/>
+			</CSidebarBrand>
 		<!-- <i class="iconfont icon-11111-copy"></i> -->
 		<el-menu
 			router
@@ -38,6 +38,10 @@
 			<el-menu-item index="/Replay/Advancepb">
 				<i class="iconfont icon-bofang2"></i>
 				<span slot="title">{{$t("message.left.playback")}}</span>
+			</el-menu-item>
+			<el-menu-item index="/Settings/Client">
+				<i class="iconfont icon-shezhi"></i>
+				<span slot="title">{{$t("message.setting.setting")}}</span>
 			</el-menu-item>
 		</el-menu>
 

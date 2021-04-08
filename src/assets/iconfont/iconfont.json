@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "19494742",
+      "name": "设置",
+      "font_class": "shezhi1",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "20406826",
+      "name": "设备",
+      "font_class": "shebei",
+      "unicode": "e792",
+      "unicode_decimal": 59282
+    },
+    {
       "icon_id": "2477508",
       "name": "服务器",
       "font_class": "fuwuqi",

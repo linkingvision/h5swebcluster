@@ -157,6 +157,9 @@ export default {
 			ONVIF:"ONVIF",
 			File:"File",
 
+			ClientConfiguration:"Client Configuration",
+			RTCENGINE:"RTC Engine",
+
 			Audio: "Audio",
 			DeviceImport:"Device Import", 
 			Import:"Import",

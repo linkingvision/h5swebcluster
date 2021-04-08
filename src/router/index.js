@@ -34,6 +34,8 @@ const Nodemonitoring = () => import('@/views/dashboard/Nodemonitoring')
 const Advancepb = () => import('@/views/replay/Advancepb')
 const Archive = () => import('@/views/replay/Archive')
 
+const Settings = () => import('@/views/Settings')
+const Client = () => import('@/views/settings/Client/Client')
 
 Vue.use(Router)
 
@@ -144,7 +146,30 @@ export default new Router({
 							},
 						}
 					]
-				},
+				},{
+					path: 'Settings',
+					name: 'Settings',
+					component: Settings,
+					meta: {
+						title: '/Settings/DeviceStream',
+						name:i18n.tc("message.setting.setting"),
+						icon:'iconfont icon-shezhi',
+						type: 'Administrator'  // 是否需要判断是否登录,这里是需要判断
+					},
+					children: [
+						{
+							path: 'Client',
+							name: 'Client',
+							component: Client,
+							meta: {
+								title: '/Client',
+								name:i18n.tc("message.dashboard.cluster"),
+								icon:'iconfont icon-jiankong',
+								type: 'Administrator'  // 是否需要判断是否登录,这里是需要判断
+							},
+						},
+					]
+				}
 			]
 		},{
 			path: '/Login',
@@ -165,6 +190,12 @@ export default new Router({
         }
 	]
 })
+if(localStorage.getItem('watermarktoggle')){
+	store.state.watermarktoggle=localStorage.getItem('watermarktoggle');
+}
+if(localStorage.getItem('liveviewrtc')){
+	store.state.liveviewrtc=localStorage.getItem('liveviewrtc');
+}
 
 if(sessionStorage.getItem('clustertoken')){
 	store.state.token=sessionStorage.getItem('clustertoken');
@@ -188,7 +219,7 @@ let root=process.env.VUE_APP_URL;
 if (root == undefined){
 	root = window.location.protocol + '//' + window.location.host + window.location.pathname;
 }
-console.log(root)
+console.log(root)	
 store.state.IPPORT=root
 
 var wsroot = process.env.VUE_APP_PORT;
