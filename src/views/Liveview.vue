@@ -133,7 +133,7 @@ export default {
     created(){
     },
 	mounted(){
-        // this.addWaterMarker();
+        this.addWaterMarker();
         this.GetNodeList();
         this.updateUI();
         // this.cloudDevice()
@@ -221,7 +221,9 @@ export default {
 
                         // if(item['bRec'] == true)
                         //         newItem['iconclass2'] = 'iconfont icon-radioboxfill none';
-
+                        // if(item['bDisable'] == true&&this.$store.state.devicemarktoggle=='none'){
+                        //     continue;
+                        // }
                     srcGroup.push(newItem);
                     }
                     var srcData = this.data.find(item => item.token === strNodeId)
@@ -433,8 +435,8 @@ export default {
             }
         },
         //水印
-        /**addWaterMarker(){
-			if(!document.getElementById("watermarktoggle")){
+        addWaterMarker(){
+			if(localStorage.watermarktoggle=='none'){
 				return
 			}
             var date=new Date();
@@ -459,7 +461,7 @@ export default {
             cans.textBaseline = 'Middle'; //画布里面文字的垂直位置
             cans.fillText(watermarkstring,can.width/3,can.height/2); //画布里面文字的间距比例
             document.getElementById("watermarktoggle").style.backgroundImage="url("+can.toDataURL("image/png")+")";
-        },*/
+        },
         //树形节点点击
         handleNodeClick(data, checked, indeterminate){
             if(data.streamprofile==undefined){

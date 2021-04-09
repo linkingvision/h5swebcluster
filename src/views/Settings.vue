@@ -43,6 +43,12 @@ export default {
 	},
 	mounted(){
 		this.menuList();
+
+		let root=this.$store.state.IPPORT;
+		var url=root+'/api/cluster/v2/GetNodeList'
+		this.$http.get(url).then(result=>{
+			console.log(result);
+		})
 	},
 	created(){
 	}
