@@ -14,7 +14,7 @@
 		</CSidebarBrand> -->
 		<CSidebarBrand class="d-md-down-none">
 				<img 
-					:src="require('../assets/imgs/logo.svg')"
+					:src="require('../assets/imgs/logo_cluster.svg')"
 					width="180"
 					height="26"
 					alt="H5S Logo"/>

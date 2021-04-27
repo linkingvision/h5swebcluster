@@ -11,6 +11,7 @@ const state = {
   lang:"zhchs",
   token:null,
   user:null,
+  Adswitch:"false",
   root:null,
   //session
   IPPORT:'',

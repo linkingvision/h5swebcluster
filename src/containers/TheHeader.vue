@@ -34,7 +34,7 @@
 		<!-- cluster_logo_red -->
 		<CHeaderNav class="d-md-down-none mr-auto" style="margin-left: 75px;">
 			<img 
-			src="../assets/imgs/cluster_logo_header.svg"
+			src="../assets/imgs/logo_cluster.svg"
 			width="300"
 			height="36"
 			alt="cluster Logo"/>
@@ -95,7 +95,7 @@
 		</CHeaderNav>
 		<CHeaderNav class="d-md-down-none mr-auto" >
 			<img 
-			src="../assets/imgs/logo.svg"
+			src="../assets/imgs/logo_cluster.svg"
 			width="190"
 			height="26"
 			alt="H5S Logo"/>
