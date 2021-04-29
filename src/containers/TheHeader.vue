@@ -96,7 +96,7 @@
 		<CHeaderNav class="d-md-down-none mr-auto" >
 			<img 
 			src="../assets/imgs/logo_cluster.svg"
-			width="190"
+			width="200"
 			height="26"
 			alt="H5S Logo"/>
 		</CHeaderNav>
