@@ -296,27 +296,27 @@ export default {
                         var item = data.src[i];
                         // console.log(item)
                         // 主副流
-                        var node=[{
-                        token : item['strToken'],
-                        streamprofile : "main",
-                        label :this.$t('message.live.mainstream'),
-                        name:item['strName']+"--"+this.$t('message.live.mainstream'),
-                        iconclass : 'mdi mdi-playlist-play fa-fw',
-                        disabled_me:false
-                        },{
-                        token : item['strToken'],
-                        streamprofile : "sub",
-                        label :this.$t('message.live.substream'),
-                        name:item['strName']+"--"+this.$t('message.live.substream'),
-                        iconclass : 'mdi mdi-playlist-play fa-fw',
-                        disabled_me:false
-                        }]
+                        // var node=[{
+                        // token : item['strToken'],
+                        // streamprofile : "main",
+                        // label :this.$t('message.live.mainstream'),
+                        // name:item['strName']+"--"+this.$t('message.live.mainstream'),
+                        // iconclass : 'mdi mdi-playlist-play fa-fw',
+                        // disabled_me:false
+                        // },{
+                        // token : item['strToken'],
+                        // streamprofile : "sub",
+                        // label :this.$t('message.live.substream'),
+                        // name:item['strName']+"--"+this.$t('message.live.substream'),
+                        // iconclass : 'mdi mdi-playlist-play fa-fw',
+                        // disabled_me:false
+                        // }]
                         var newItem ={
                                 token : item['strToken'],
                                 label : item['strName'],
                                 iconclass : 'mdi mdi-video fa-fw',
                                 name:item['strName']+"--"+this.$t('message.live.mainstream'),
-                                children:node,
+                                // children:node,
                                 disabled_me:false};
 
                         if(!item['bOnline']){
@@ -476,6 +476,7 @@ export default {
 					//  return false;
 					_this.$http.get(url).then(result=>{
 						if(result.status == 200){
+							
 							var data=result.data;
 							var timedata1=[];
 							//console.log("length",data.record.length);
@@ -776,7 +777,6 @@ export default {
 						$("#timeline"+this.selectRow+this.selectCol).TimeSlider('init',timevalue,timedata1);
 						$("#gaovideohb"+this.selectRow+this.selectCol).get(0).load();
 						$("#gaovideohb"+this.selectRow+this.selectCol).get(0).poster = '';
-						
 					}
 				}else if(this.selectRow=="2"&&this.selectCol=="2"){
 					if (this.v4 != undefined)
@@ -803,7 +803,6 @@ export default {
 					});
 				}
 			}
-			
 		},
 		//un ui
 		updateUI()
@@ -1017,7 +1016,7 @@ export default {
 			// var Gtoken=data.token
 			
 			var timevalue=this.xzvalue;
-			console.log("timevalue11111",timevalue);
+			// console.log("timevalue11111",timevalue);
 			var year = timevalue.getFullYear();
 			var month = timevalue.getMonth() + 1;
 			var strDate = timevalue.getDate();
@@ -1027,8 +1026,8 @@ export default {
 			var timevalues1=year+"-"+month+"-"+strDate1+"T"+"00:00:00"+"+0"+localOffset+":00";
 			var timevaluee=year+"-"+month+"-"+strDate+"T"+"23:59:59"+"+0"+localOffset+":00";
 			
-			console.log("======",strDate,strDate1);
-			console.log("timevaluee222222",timevalues,timevaluee,"------",localOffset);
+			// console.log("======",strDate,strDate1);
+			// console.log("timevaluee222222",timevalues,timevaluee,"------",localOffset);
 
             // return false;
             var root = this.$store.state.IPPORT;
@@ -1042,14 +1041,14 @@ export default {
 				url = root + "/api/v1/Search?type=record&token="+token
 				+"&start="+encodeURIComponent(timevalues1)+"&end="+encodeURIComponent(timevaluee)+"&session="+ this.$store.state.token;
 			}
-			
 			//return false;
 			this.$http.get(url).then(result=>{
-				console.log(url,result);
+				console.log(url,result,99999999999);
 				if(result.status == 200){
 					var data=result.data;
 					var timedata1=[];
-					//console.log("length",data.record.length);
+					console.log("length",data);
+					if(data.bStatus == false){return}
 					for(var i=0;i<data.record.length;i++){
 						var item=data.record[i];
 						//时间转换

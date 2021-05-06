@@ -15,7 +15,7 @@
 		<CSidebarBrand class="d-md-down-none">
 				<img 
 					:src="require('../assets/imgs/logo_cluster.svg')"
-					width="180"
+					width="200"
 					height="26"
 					alt="H5S Logo"/>
 			</CSidebarBrand>
@@ -72,7 +72,6 @@ export default {
 	methods:{
 		menuList(){ 
 			let path = this.$route.matched[1].meta.title
-			console.log(path)
             this.activeIndex = path
         }
 	}

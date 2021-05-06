@@ -303,29 +303,12 @@ export default {
                     var srcGroup = [];
                     for(var i=0; i< data.src.length; i++){
                         var item = data.src[i];
-                        // console.log(item)
-                        // 主副流
-                        var node=[{
-                        token : item['strToken'],
-                        streamprofile : "main",
-                        label :this.$t('message.live.mainstream'),
-                        name:item['strName']+"--"+this.$t('message.live.mainstream'),
-                        iconclass : 'mdi mdi-playlist-play fa-fw',
-                        disabled_me:false
-                        },{
-                        token : item['strToken'],
-                        streamprofile : "sub",
-                        label :this.$t('message.live.substream'),
-                        name:item['strName']+"--"+this.$t('message.live.substream'),
-                        iconclass : 'mdi mdi-playlist-play fa-fw',
-                        disabled_me:false
-                        }]
                         var newItem ={
                                 token : item['strToken'],
                                 label : item['strName'],
                                 iconclass : 'mdi mdi-video fa-fw',
                                 name:item['strName']+"--"+this.$t('message.live.mainstream'),
-                                children:node,
+                                // children:node,
                                 disabled_me:false};
 
                         if(!item['bOnline'])
@@ -544,8 +527,7 @@ export default {
                     //return false;
                     await this.$http.get(url).then(result=>{
                         if(result.status == 200){
-                                this.$message({message:'Query successful',duration:1000});
-                            //     this.$message('Query successful');
+                            this.$message('Query successful');
                             var data=result.data;
                             console.log(data,label)
                             for(var i=0;i<data.record.length;i++){
@@ -689,6 +671,9 @@ export default {
                     font-size: 24px;
                 }
             }
+        }
+        .el-table{
+            min-height: 76vh;
         }
     }
     .dasboard_modal{

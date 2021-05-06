@@ -150,7 +150,6 @@ export default {
 			SampleBit: "采样位宽",
 			Channels: "声道数",
 			Bitrate: "码率",
-
 		},
 		setting:
 		{

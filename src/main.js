@@ -40,7 +40,6 @@ router.beforeEach((to, from, next) => {
 		next();
 	} else {
 		let token = store.state.token;
-		
 		if (token === 'null' || token === '') {
 			next('/Login');
 		} else {

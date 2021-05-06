@@ -195,7 +195,7 @@ export default {
             network_out:this.$t("message.dashboard.network_out"),
 		}
 	},
-	beforeDestroy(){
+	beforeMounted(){
 		clearInterval(this.nodedate)
 	},
 	mounted(){

@@ -1,10 +1,5 @@
 <template>
     <div class="login_back">
-        <!-- <div class="login_but">
-            <router-link :to="{name:'Downloadapp'}">
-                <el-button class="but_jump" plain>{{this.$t("message.archive.Download")}}</el-button>
-            </router-link>
-        </div> -->
         <div class="login_head">
             <div class="login_title"></div>
             <div class="login_content">
@@ -67,9 +62,8 @@ export default {
         };
     },
     mounted(){
-        // console.log(sessionStorage.getItem('clustertoken'))
-        $("#prompt").hide();
-        $("#prompt1").hide();
+        // $("#prompt").hide();
+        // $("#prompt1").hide();
     },
     methods: {
         langchang(){
@@ -168,12 +162,12 @@ export default {
                 background: none;
                 border: none;
                 /*错误提示 */
-                .prompt{
-                    font-size:7px;
-                    font-family:PingFang SC;
-                    font-weight:500;
-                    color:rgba(208,19,19,1);
-                }
+                // .prompt{
+                //     font-size:7px;
+                //     font-family:PingFang SC;
+                //     font-weight:500;
+                //     color:rgba(208,19,19,1);
+                // }
                 .form-group{
                     font-size:10px;
                     font-family:PingFang SC;

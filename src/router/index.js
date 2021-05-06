@@ -151,10 +151,10 @@ export default new Router({
 					name: 'Settings',
 					component: Settings,
 					meta: {
-						title: '/Settings/DeviceStream',
+						title: '/Settings/Client',
 						name:i18n.tc("message.setting.setting"),
 						icon:'iconfont icon-shezhi',
-						type: 'Administrator'  // 是否需要判断是否登录,这里是需要判断
+						type: 'Operator'  // 是否需要判断是否登录,这里是需要判断
 					},
 					children: [
 						{
@@ -165,7 +165,7 @@ export default new Router({
 								title: '/Client',
 								name:i18n.tc("message.dashboard.cluster"),
 								icon:'iconfont icon-jiankong',
-								type: 'Administrator'  // 是否需要判断是否登录,这里是需要判断
+								type: 'Operator'  // 是否需要判断是否登录,这里是需要判断
 							},
 						},
 					]
