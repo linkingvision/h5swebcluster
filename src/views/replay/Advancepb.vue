@@ -135,6 +135,7 @@
                                     
                                 </div>
                                 <div class="caveat_butt" style="">
+									<button class="mr-0" type="button"></button> {{$t("message.archive.Schedulerecord")}}
                                     <button class="mr-1" type="button"></button>{{$t("message.archive.ManualRecord")}}
                                     <button class="mr-2" type="button"></button>{{$t("message.archive.AlarmRecord")}}
                                 </div>
@@ -270,7 +271,7 @@ export default {
                                 this.data.push({
                                     token:item.strNodeId,
                                     label:item.strNodeName,
-                                    iconclass:"iconfont iconapartment",
+                                    iconclass:"iconfont icon-zhuji",
                                     children:[]
                                 })
                                 this.GetsrcList(item.strNodeId)
@@ -448,7 +449,7 @@ export default {
 					console.log(timevalue)
 					var year = timevalue.getFullYear();
 					var month = timevalue.getMonth() + 1;
-					var strDate = timevalue.getDate();
+					var strDate = timevalue.getDate(); 
 					var strDate1 = timevalue.getDate()+1;
 					var strDate2 = timevalue.getDate()-1;
 					var getHours = timevalue.getHours();
@@ -467,7 +468,7 @@ export default {
 					// console.log("timevaluee222222",timevalues,timevaluee,"------",localOffset,"**",timevalue);
 					var url=""
 					if(_this.Adswitch=="false"){
-						url = url = root + "api/v1/SearchDeviceRecordByTime?token="+_this.Gtoken+"&start="+encodeURIComponent(timevalues1)+"&end="+encodeURIComponent(timevaluee1)+"&session="+ _this.$store.state.token;
+						url = url = root + "/api/cluster/v2/SearchClusterRecordByTime?token="+_this.Gtoken+"&start="+encodeURIComponent(timevalues1)+"&end="+encodeURIComponent(timevaluee1)+"&session="+ _this.$store.state.token;
 					}else{
 						url = root + "api/v1/Search?type=record&token="+_this.Gtoken
 						+"&start="+encodeURIComponent(timevalues1)+"&end="+encodeURIComponent(timevaluee)+"&session="+ _this.$store.state.token;
@@ -492,10 +493,11 @@ export default {
 										endTime :end,
 										style:{background:"rgba(60,196,60, 0.498039)"}
 									};
-								//console.log("录像段时间段颜色",timeitem["style"].background); //录像段时间段颜色
 								if(item["nType"]==="H5_REC_MANUAL"){
 									timeitem["style"].background="rgba(60,196,60, 0.498039)"
 									//console.log("录像段时间段颜色1",timeitem["style"].background);
+								}else if(item["nType"]==="H5_REC_SCHEDULE"){
+									timeitem["style"].background="#31b1ff"
 								}else{
 									timeitem["style"].background="rgba(238,17,17, 0.498039)"
 									//console.log("录像段时间段颜色2",timeitem["style"].background);
@@ -1003,7 +1005,6 @@ export default {
 		Play(data){
 			var token=data;
 			//关闭视频并改变图标
-			
 			this.icon="iconfont icon-zantingtingzhi";
 			this.icon1="iconfont icon-zantingtingzhi";
 			this.icon2="iconfont icon-zantingtingzhi";
@@ -1014,7 +1015,6 @@ export default {
 				return false;
 			}
 			// var Gtoken=data.token
-			
 			var timevalue=this.xzvalue;
 			// console.log("timevalue11111",timevalue);
 			var year = timevalue.getFullYear();
@@ -1033,14 +1033,15 @@ export default {
             var root = this.$store.state.IPPORT;
 			var wsroot = this.$store.state.WSROOT;
 			var url=""
+			console.log(55555555555);
 			if(this.Adswitch=="false"){
-				
-				url = root + "/api/v1/SearchDeviceRecordByTime?token="+token
+				url = root + "/api/cluster/v2/SearchClusterRecordByTime?token="+token
 				+"&start="+encodeURIComponent(timevalues1)+"&end="+encodeURIComponent(timevaluee)+"&session="+ this.$store.state.token;
 			}else{
 				url = root + "/api/v1/Search?type=record&token="+token
 				+"&start="+encodeURIComponent(timevalues1)+"&end="+encodeURIComponent(timevaluee)+"&session="+ this.$store.state.token;
 			}
+			console.log(666665555555);
 			//return false;
 			this.$http.get(url).then(result=>{
 				console.log(url,result,99999999999);
@@ -1065,6 +1066,8 @@ export default {
 						if(item["nType"]==="H5_REC_MANUAL"){
 							timeitem["style"].background="rgba(60,196,60, 0.498039)"
 							//console.log("录像段时间段颜色1",timeitem["style"].background);
+						}else if(item["nType"]==="H5_REC_SCHEDULE"){
+							timeitem["style"].background="#31b1ff"
 						}else{
 							timeitem["style"].background="rgba(238,17,17, 0.498039)"
 							//console.log("录像段时间段颜色2",timeitem["style"].background);
@@ -1317,6 +1320,9 @@ export default {
 
 <style lang="scss" scoped>
 .playback{
+	.iconfont{
+		font-size: 14px;
+	}
     display: flex;
     justify-content: space-between;
     .playback_snap_zuo{
@@ -1429,7 +1435,16 @@ export default {
 				
 			}
             .caveat_butt{
-                display: flex;align-items:center;width:11%;min-width: 180px;
+                display: flex;align-items:center;min-width: 180px;
+				.mr-0{
+                    width: 15px;
+                    height:15px;
+                    border-radius: 50px;
+                    border: 0;
+					margin-right: 5px !important;
+                    vertical-align:middle;
+                    background-color: #31b1ff;
+                }
                 .mr-1{
                     width: 15px;
                     height: 15px;

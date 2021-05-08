@@ -303,6 +303,23 @@ export default {
                     var srcGroup = [];
                     for(var i=0; i< data.src.length; i++){
                         var item = data.src[i];
+                        // console.log(item)
+                        // 主副流
+                        // var node=[{
+                        // token : item['strToken'],
+                        // streamprofile : "main",
+                        // label :this.$t('message.live.mainstream'),
+                        // name:item['strName']+"--"+this.$t('message.live.mainstream'),
+                        // iconclass : 'mdi mdi-playlist-play fa-fw',
+                        // disabled_me:false
+                        // },{
+                        // token : item['strToken'],
+                        // streamprofile : "sub",
+                        // label :this.$t('message.live.substream'),
+                        // name:item['strName']+"--"+this.$t('message.live.substream'),
+                        // iconclass : 'mdi mdi-playlist-play fa-fw',
+                        // disabled_me:false
+                        // }]
                         var newItem ={
                                 token : item['strToken'],
                                 label : item['strName'],
@@ -543,10 +560,11 @@ export default {
                                         urlto:'',
                                         strFileName:""
                                     };
-                                    
                                     //   console.log(data)
                                     if(item['nType']=="H5_REC_MANUAL"){
                                         timeitem["type"] = this.$t("message.archive.ManualRecord");
+                                    }else if(item["nType"]==="H5_REC_SCHEDULE"){
+                                        timeitem["type"] = this.$t("message.archive.Schedulerecord");
                                     }else{
                                         timeitem["type"] = this.$t("message.archive.AlarmRecord");
                                     }

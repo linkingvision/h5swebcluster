@@ -411,7 +411,7 @@ $collapse_size:#FFFFFF;
             background: #202020 !important;
         }
         .el-table__body tr:hover>td {
-            background:none!important;
+            background:#252525 !important;
           }
         .el-table__body tr.hover-row>td{
             background-color: #252525!important;
@@ -684,11 +684,19 @@ $collapse_size:#FFFFFF;
         }
         .el-checkbox__inner{
             background-color: #494B4E !important;
-            border-radius: 50px !important;
+            // border-radius: 50px !important;
         }
         .el-checkbox__input.is-checked .el-checkbox__inner,.el-checkbox__input.is-indeterminate .el-checkbox__inner{
             background-color: #3277FF !important;
             border-color: rgba(255,255,255,1) !important;
         }
+    }
+    .el-checkbox{
+        margin-bottom:0 ;
+    }
+}
+.dark_dashboard{
+    .el-table .cell{
+        color: #181818;
     }
 }

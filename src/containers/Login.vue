@@ -62,8 +62,6 @@ export default {
         };
     },
     mounted(){
-        // $("#prompt").hide();
-        // $("#prompt1").hide();
     },
     methods: {
         langchang(){

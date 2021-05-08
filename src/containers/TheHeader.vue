@@ -160,6 +160,12 @@ export default {
 			centerDialogVisible:false,//关于
 			gEvvalue: 0,//事件
 			KeepaToken:null,//更新
+			toggle:'',
+		}
+	},
+	watch:{
+		toggle(a){
+			this.$root.bus.$emit('skintoggle', a);
 		}
 	},
 	beforeDestroy() {
@@ -209,7 +215,7 @@ export default {
 			this.toggle=this.$store.state.darkMode
 			this.$store.commit('toggle', 'darkMode')
 			localStorage.Clusterthemetoggle=this.$store.state.darkMode
-			console.log(JSON.parse( localStorage.getItem('themetoggle')),this.$store.state.darkMode)
+			console.log(JSON.parse( localStorage.getItem('Clusterthemetoggle')),this.$store.state.darkMode)
 		},
 	}
 }

@@ -1,7 +1,7 @@
 <template>
 <div class="Setting">
 	<div class="setting_all">
-		<div class="setting_zuo">
+		<div class="setting_zuo"  :class="{ 'dark_setting_zuo': !$store.state.darkMode }">
 			<el-menu
                 router
                 :default-active="activemenu" 
@@ -10,6 +10,7 @@
 				:text-color="($store.state.darkMode) ? '#B7B7B7' : '#7A7A7A'">
 				<el-submenu index="/Settings/Client">
 					<template slot="title">
+						<i class="iconfont icon-kehuduanpeizhi"></i>
 						<span>{{$t("message.setting.ClientConfiguration")}}</span>
 					</template>
                     <el-menu-item index="/Settings/Client">
@@ -63,6 +64,10 @@ export default {
 		width: 16%;
 		height: 91vh;
 		overflow-y: auto;
+		background-color: rgb(45, 45, 45);
+	}
+	.dark_setting_zuo{
+		background: #f5f5f5  !important;
 	}
 	i{
 		margin-right: 10px;

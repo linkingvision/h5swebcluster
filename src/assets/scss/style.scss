@@ -52,12 +52,12 @@ input:focus{
                     display: none;
                 }
             }
-            .el-table__body tr:hover>td {
-                background: #272727!important;
-            }
-            .el-table__body tr.hover-row>td{
-                background-color: #252525!important;
-            }
+            // .el-table__body tr:hover>td {
+            //     background: #272727!important;
+            // }
+            // .el-table__body tr.hover-row>td{
+            //     background-color: #252525!important;
+            // }
             & td, & th.is-leaf {
                 color:rgba(255,255,255,1);
                 border: none!important;

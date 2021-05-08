@@ -1,7 +1,7 @@
 <template>
-	<div class="Cluster_dashboard">
+	<div class="Cluster_dashboard" :class="{ 'dark_dashboard': !$store.state.darkMode }">
 		<div class="dashboard_left">
-			<div class="dashboard_left_top">
+			<div class="dashboard_left_top" :class="{ 'dark_dashboard_left_top': $store.state.darkMode }">
 				<div class="dashboard_title">监控点</div>
 				<div class="dashboard_left_top_Monitoring">
 					<div id="Monitoring_number" class="layer03-right-chart">
@@ -12,9 +12,10 @@
 						<div class="layer03-right-chart-label">集群节点数</div>
 						<canvas width="150" height="150"></canvas>
 					</div>
+					
 				</div>
 			</div>
-			<div class="dashboard_left_bottom">
+			<div class="dashboard_left_bottom" :class="{ 'dark_dashboard_left_bottom': $store.state.darkMode }">
 				<div class="dashboard_title">节点监控</div>
 				<div class="dashboard_content" style="height:500px;overflow: hidden;">
 					<el-table
@@ -65,10 +66,10 @@
 				</router-link> -->
 				<div class="nodepopup_ontent">
 					<div class="nodepopup_left">
-						<div class="nodepopup_left_top">
+						<div class="nodepopup_left_top" :class="{ 'dark_nodepopup_left_top': $store.state.darkMode }">
 							<div id="container0" style="width: 100%;height: 100%;"></div>
 						</div>
-						<div class="nodepopup_left_buttom">
+						<div class="nodepopup_left_buttom"  :class="{ 'dark_nodepopup_left_bottom': $store.state.darkMode }">
 							<div id="nodepopup_number" class="layer03-right-chart">
 								<canvas width="150" height="150"></canvas>
 							</div>
@@ -82,7 +83,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="dashboard_center_bottom">
+			<div class="dashboard_center_bottom" :class="{ 'dark_dashboard_center_bottom': $store.state.darkMode }">
 				<div class="dashboard_title1">设备资源</div>
 				<div class="dashboard_left_bottom_Devresources">
 					<div class="containesr_sdks" v-for="(da,index) in devbucket" :key="index">
@@ -98,7 +99,7 @@
 			</div>
 		</div>
 		<div class="dashboard_right">
-			<div class="dashboard_right_top">
+			<div class="dashboard_right_top" :class="{ 'dark_dashboard_right_top': $store.state.darkMode }">
 				<div class="dashboard_title">设备列表</div>
 				<div class="dashboard_content" :style=" SrcData==0 ?'overflow:hidden;' : 'overflow:auto;'">
 					<el-table
@@ -143,34 +144,21 @@
 					</el-table>
 				</div>
 			</div>
-			<div class="dashboard_right_bottom">
+			<div class="dashboard_right_bottom" :class="{ 'dark_dashboard_right_bottom': $store.state.darkMode }">
 				<div class="dashboard_title">报警统计</div>
+				<div class="dashboard_baojing">
+					<!-- <div class="anumber">1357</div> -->
+					<div id="alarm_number" class="layer03-right-chart">
+					</div>
+					<div id="alarm_number1" class="layer03-right-chart">
+					</div>
+					<div id="alarm_number2" class="layer03-right-chart">
+					</div>
+					<div id="alarm_number3" class="layer03-right-chart">
+					</div>
+				</div>
 			</div>
 		</div>
-		<!-- <el-dialog :before-close="handleClose" class="nodepopup" width="55%" :visible.sync="nodePopup">
-            <div class="nodepopup_ontent">
-				<div class="nodepopup_left">
-					<div class="nodepopup_left_top">
-						<div id="container0" style="width: 100%;height: 100%;"></div>
-					</div>
-					<div class="nodepopup_left_buttom">
-						<div id="nodepopup_number" class="layer03-right-chart">
-							<canvas width="150" height="150"></canvas>
-						</div>
-						<div id="nodepopup_number1" class="layer03-right-chart">
-							<canvas width="150" height="150"></canvas>
-						</div>
-						<div id="nodepopup_number2" class="layer03-right-chart">
-							<canvas width="150" height="150"></canvas>
-						</div>
-					</div>
-				</div>
-				<div class="nodepopup_right">
-					<div class="nodepopup_right_top"></div>
-					<div class="nodepopup_right_buttom"></div>
-				</div>
-			</div>
-        </el-dialog> -->
 	</div>
 </template>
 
@@ -195,13 +183,22 @@ export default {
             network_out:this.$t("message.dashboard.network_out"),
 		}
 	},
-	beforeMounted(){
-		clearInterval(this.nodedate)
-	},
+	// beforeMounted(){
+	// 	clearInterval(this.nodedate)
+	// },
 	mounted(){
+		//集群节点数
 		this.GetNodeList();
 		this.GetsrcList();
+		// 监控节点数
 		this.GetClusterSrcSummary();
+		var _this=this
+		_this.$root.bus.$on('skintoggle', function(a){
+            console.log("更换皮肤",a)
+            _this.GetNodeList();
+            _this.GetClusterSrcSummary();
+
+        });
 	},
 	methods:{
 		//关闭弹窗
@@ -376,7 +373,7 @@ export default {
 			var _this=this
 			
 			_this.$http.get(url).then(result=>{
-				console.log(result)
+				// console.log(result)
 				if(result.status == 200){
 					var byte=result.data.runinfo
 					_this.data.shift();
@@ -425,6 +422,14 @@ export default {
 				console.log("GetNodeList",error);
 			});
 		},
+		//报警系统
+		alerter(){
+			var alarm_number=$("#alarm_number canvas").get(0)
+			var alarm_number1=$("#alarm_number1 canvas").get(0)
+			var alarm_number2=$("#alarm_number2 canvas").get(0)
+			var alarm_number3=$("#alarm_number3 canvas").get(0)
+		},
+
 		//监控点数
 		GetClusterSrcSummary(){
 			let root=this.$store.state.IPPORT;
@@ -496,6 +501,7 @@ export default {
 					var number=(result.data.nCameraOnline/result.data.nCameraTotal).toFixed(2)
 					// for(var i = 0; i<data.length; i++){
 					this.Monitoringnumber(clusterid,"1",number,result.data.nCameraTotal);
+					// this.Monitoringnumber(clusterid,"1",number,result.data.nCameraTotal);
 					// }
 				}
 			}).catch(error => {
@@ -507,14 +513,12 @@ export default {
 			let root=this.$store.state.IPPORT;
 			var url=root+'/api/cluster/v2/GetNodeList'
 			this.$http.get(url).then(result=>{
-                console.log("节点列表",result)
                 if(result.status == 200){
 					if(result.data.node){
 						this.NodeData=result.data.node
 						var clusterid=$("#Monitoring_number1 canvas").get(0)
 						this.Monitoringnumber(clusterid,"2",1,result.data.node.length);
 					}
-					console.log(this.NodeData[0]);
 					this.Nodedetails(this.NodeData[0]);
 				}
 			}).catch(error => {
@@ -553,7 +557,11 @@ export default {
 			ctx.beginPath();
 			ctx.arc(circle.x,circle.y,circle.r,0,Math.PI*2)
 			ctx.lineWidth = 2;
-			ctx.strokeStyle = '#FFFFFF';
+			if(this.$store.state.darkMode){
+				ctx.strokeStyle = '#FFFFFF';
+			}else{
+				ctx.strokeStyle = '#f7f7f7';
+			}
 			ctx.stroke();
 			ctx.closePath();
 
@@ -582,7 +590,11 @@ export default {
 			ctx.stroke();
 			ctx.closePath();
 			ctx.textAlign = 'center' 
-			ctx.fillStyle = '#FFFFFF';
+			if(this.$store.state.darkMode){
+				ctx.fillStyle = '#FFFFFF';
+			}else{
+				ctx.fillStyle = '#181818';
+			}
 			ctx.font = '20px Calibri';
 			var ratedata=Math.round(percentage*100)
 			ctx.fillText(ratedata+'%',circle.x,circle.y-12);
@@ -610,7 +622,11 @@ export default {
 			ctx.beginPath();
 			ctx.arc(circle.x,circle.y,circle.r,0,Math.PI*2)
 			ctx.lineWidth = 2;
-			ctx.strokeStyle = '#FFFFFF';
+			if(this.$store.state.darkMode){
+				ctx.strokeStyle = '#FFFFFF';
+			}else{
+				ctx.strokeStyle = '#f7f7f7';
+			}
 			ctx.stroke();
 			ctx.closePath();
 
@@ -634,8 +650,14 @@ export default {
 			ctx.strokeStyle = colors;
 			ctx.stroke();
 			ctx.closePath();
-			ctx.textAlign = 'center' 
-			ctx.fillStyle = '#FFFFFF';
+			ctx.textAlign = 'center';
+			// ctx.fillStyle = '#FFFFFF';
+			if(this.$store.state.darkMode){
+				ctx.fillStyle = '#FFFFFF';
+			}else{
+				ctx.fillStyle = '#181818';
+			}
+			
 			ctx.font = '20px Calibri';
 			var ratedata=Math.round(rate*100)
 			ctx.fillText(ratedata+'%',circle.x,circle.y-5);
@@ -651,7 +673,7 @@ export default {
 <style lang="scss" scoped>
 .Cluster_dashboard{
     width: 100%;
-    height: 99%;
+    height: 94vh;
     background: url("~@/views/imgs/Cluster_dashboard_back.png") no-repeat center;
     background-size: cover;
     min-width: 993px;
@@ -673,7 +695,7 @@ export default {
 			font-family: Source Han Sans CN;
 			font-weight: 500;
 			letter-spacing: 2px;
-			color: #FFFFFF;
+			color: #181818;
 		}
 		.dashboard_title1{
 			text-align: center;
@@ -682,7 +704,7 @@ export default {
 			font-family: Source Han Sans CN;
 			font-weight: 500;
 			letter-spacing: 2px;
-			color: #FFFFFF;
+			color: #181818;
 		}
 	}
 	
@@ -693,7 +715,7 @@ export default {
 			width: 100%;
 			height: 35%;
 			// border: 1px solid #ffffff;
-			background: url("~@/views/imgs/dashboard_back_img.png") no-repeat center center;
+			background: url("~@/views/imgs/jiankongdian.png") no-repeat center center;
 			background-size: 100% 100%;
 			.dashboard_left_top_Monitoring{
 				width:100%;
@@ -707,7 +729,19 @@ export default {
 					margin-top: 40px;
 					.layer03-right-chart-label{
 						text-align: center;
-						color: #FFFFFF;
+						color: #181818;
+					}
+				}
+			}
+		}
+		.dark_dashboard_left_top{
+			background: url("~@/views/imgs/dashboard_back_img.png") no-repeat center center;
+			background-size: 100% 100%;
+			.dashboard_title{color: #fff;}
+			.dashboard_left_top_Monitoring{
+				.layer03-right-chart{
+					.layer03-right-chart-label{
+						color: #fff;
 					}
 				}
 			}
@@ -716,15 +750,30 @@ export default {
 			width: 100%;
 			height: 63%;
 			// border: 1px solid #ffffff;
-			background: url("~@/views/imgs/dashboard_back_img3.png") no-repeat center center;
+			background: url("~@/views/imgs/jiedianjiankong.png") no-repeat center center;
 			background-size: 100% 100%;
 			.dashboard_content{
 				width: 100%;
 				height: 92%;
 				padding: 45px 15px 0;
 				overflow: auto;
+				.el-table .cell{
+					color:#181818 !important;
+				}
 				&::-webkit-scrollbar{
 					display: none;
+				}
+			}
+		}
+		.dark_dashboard_left_bottom{
+			background: url("~@/views/imgs/dashboard_back_img3.png") no-repeat center center;
+			background-size: 100% 100%;
+			.dashboard_title{color: #fff;}
+			.dashboard_left_top_Monitoring{
+				.layer03-right-chart{
+					.layer03-right-chart-label{
+						color: #fff;
+					}
 				}
 			}
 		}
@@ -734,70 +783,16 @@ export default {
 		.dashboard_center_top{
 			width: 100%;
 			height: 66%;
-			// border: 1px solid #ffffff;
-			// background: url("~@/views/imgs/dashboard_back_img2.png") no-repeat center center;
 			background-size: 55% 75%;
 			background-position-y: 100%;
 			position: relative;
 			font-family: Source Han Sans CN;
 			font-weight: 800;
-			// .center_top_event,.center_top_devlist,.center_top_node,.center_top_devres{
-			// 	color: #FFF045;
-			// }
-			// .center_top_event{
-			// 	width: 97px;
-			// 	height: 106px;
-			// 	font-size: 13px;
-			// 	background: url("~@/views/imgs/dashboard_back_imgevent.png") no-repeat center center;
-			// 	background-size: 100% 100%;
-			// 	position: absolute;
-			// 	left: 25%;
-			// 	top: 10%;
-			// 	text-align: center;
-			// 	line-height: 106px;
-			// }
-			// .center_top_devlist{
-			// 	width: 97px;
-			// 	height: 106px;
-			// 	font-size: 13px;
-			// 	background: url("~@/views/imgs/dashboard_back_imgevent.png") no-repeat center center;
-			// 	background-size: 100% 100%;
-			// 	position: absolute;
-			// 	right: 28%;
-			// 	top: 5%;
-			// 	text-align: center;
-			// 	line-height: 106px;
-			// }
-			// .center_top_node{
-			// 	width: 136px;
-			// 	height: 156px;
-			// 	font-size: 16px;
-			// 	background: url("~@/views/imgs/dashboard_back_imgnode.png") no-repeat center center;
-			// 	background-size: 100% 100%;
-			// 	position: absolute;
-			// 	left: 10%;
-			// 	top: 35%;
-			// 	text-align: center;
-			// 	line-height: 156px;
-			// }
-			// .center_top_devres{
-			// 	width: 136px;
-			// 	height: 156px;
-			// 	font-size: 16px;
-			// 	background: url("~@/views/imgs/dashboard_back_imgnode.png") no-repeat center center;
-			// 	background-size: 100% 100%;
-			// 	position: absolute;
-			// 	right: 10%;
-			// 	top: 28%;
-			// 	text-align: center;
-			// 	line-height: 156px;
-			// }
 		}
 		.dashboard_center_bottom{
 			width: 100%;
 			height: 32%;
-			// border: 1px solid #ffffff;
-			background: url("~@/views/imgs/dashboard_back_img4.png") no-repeat center center;
+			background: url("~@/views/imgs/shebeiziyuan.png") no-repeat center center;
 			background-size: 100% 100%;
 			.dashboard_left_bottom_Devresources{
 				width: 100%;
@@ -831,6 +826,11 @@ export default {
 				}
 			}
 		}
+		.dark_dashboard_center_bottom{
+			background: url("~@/views/imgs/dashboard_back_img4.png") no-repeat center center;
+			background-size: 100% 100%;
+			.dashboard_title1{color: #fff;}
+		}
 	}
 	.dashboard_right{
 		width: 25%;
@@ -838,7 +838,7 @@ export default {
 			width: 100%;
 			height: 38%;
 			// border: 1px solid #ffffff;
-			background: url("~@/views/imgs/dashboard_back_img1.png") no-repeat center center;
+			background: url("~@/views/imgs/shebieleibiao.png") no-repeat center center;
 			background-size: 100% 100%;
 			.color_red{
 				color: #FF564F;
@@ -870,12 +870,29 @@ export default {
 				}
 			}
 		}
+		.dark_dashboard_right_top{
+			background: url("~@/views/imgs/dashboard_back_img1.png") no-repeat center center;
+			background-size: 100% 100%;
+			.dashboard_title{
+				color: #fff;
+			}
+		}
 		.dashboard_right_bottom{
 			width: 100%;
 			height: 60%;
-			// border: 1px solid #ffffff;
-			background: url("~@/views/imgs/dashboard_back_img3.png") no-repeat center center;
+			background: url("~@/views/imgs/baojingtongji.png") no-repeat center center;
 			background-size: 100% 100%;
+			.dashboard_baojing{
+				width:100%;
+				height: 80%;
+			}
+		}
+		.dark_dashboard_right_bottom{
+			background: url("~@/views/imgs/dashboard_back_img1.png") no-repeat center center;
+			background-size: 100% 100%;
+			.dashboard_title{
+				color: #fff;
+			}
 		}
 	}
 	//弹窗
@@ -895,9 +912,24 @@ export default {
 				padding-top:40px;
 				width: 100%;
 				height: 60%;
-				background-color: #202020;
+				background-color: #fff;
 			}
 			.nodepopup_left_buttom{
+				width: 100%;
+				height: 39%;
+				background-color: #fff;
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				float: left;
+			}
+			.dark_nodepopup_left_top{
+				padding-top:40px;
+				width: 100%;
+				height: 60%;
+				background-color: #202020;
+			}
+			.dark_nodepopup_left_bottom{
 				width: 100%;
 				height: 39%;
 				background-color: #202020;
@@ -926,5 +958,8 @@ export default {
 		}
 
 	}
+}
+.dark_dashboard{
+    background: url("~@/views/imgs/ditu.png") no-repeat center;
 }
 </style>

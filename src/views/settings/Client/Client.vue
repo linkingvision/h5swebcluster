@@ -1,5 +1,5 @@
 <template>
-<div class="Aside">
+<div class="Aside"  :class="{ 'dark_Aside': !$store.state.darkMode }">
         <div class="Aside_title">客户端配置</div>
 		<div class="Aside_content">
 			<div class="Aside_content_top">
@@ -182,16 +182,16 @@ export default {
 .Aside{
     padding: 10px 30px;
     .Aside_title{
-        font-size: 24px;
+        font-size: 20px;
         font-family: PingFang SC;
-        font-weight: bold;
+        // font-weight: bold;
         margin-bottom: 30px;
     }
     .Aside_content{
         .Aside_content_title{
-            font-size: 18px;
+            font-size: 16px;
             font-family: PingFang SC;
-            font-weight: bold;
+            // font-weight: bold;
             margin-bottom: 15px;
         }
         .up_you_but{
@@ -221,7 +221,15 @@ export default {
             }
         }
     }
-
+}
+.dark_Aside{
+    
+    .button_addpv{
+                color: #3c4b64 !important;
+            }
+            .button_addpv1{
+                color: #3c4b64 !important;
+            }
 }
 
 </style>
