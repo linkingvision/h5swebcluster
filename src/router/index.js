@@ -193,10 +193,6 @@ export default new Router({
 if(localStorage.getItem('watermarktoggle')){
 	store.state.watermarktoggle=localStorage.getItem('watermarktoggle');
 }
-if(localStorage.getItem('liveviewrtc')){
-	store.state.liveviewrtc=localStorage.getItem('liveviewrtc');
-}
-
 if(sessionStorage.getItem('clustertoken')){
 	store.state.token=sessionStorage.getItem('clustertoken');
 }
@@ -209,12 +205,15 @@ if(sessionStorage.getItem('clusteruser')){
 
 if(localStorage.getItem('clusterliveviewrtc')){
 	store.state.clusterliveviewrtc=localStorage.getItem('clusterliveviewrtc');
+	console.log(store.state.clusterliveviewrtc);
 }
 if(localStorage.getItem('Clusterthemetoggle')){
 	console.log('主题',JSON.parse(localStorage.getItem('Clusterthemetoggle')))
 	store.state.darkMode=JSON.parse(localStorage.getItem('Clusterthemetoggle'));
 }
-
+if(localStorage.getItem('watermarkstring')){
+	store.state.watermarkstring=localStorage.getItem('watermarkstring');
+}
 let root=process.env.VUE_APP_URL;
 if (root == undefined){
 	root = window.location.protocol + '//' + window.location.host + window.location.pathname;

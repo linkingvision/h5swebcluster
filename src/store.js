@@ -20,7 +20,6 @@ const state = {
   clusterliveviewrtc:'WS',
   watermarkstring:"linkingvision",
   liveviewadd:[],
-  liveviewrtc:'WS',
   liveplay:{
     token:null,
     streamprofile:null,

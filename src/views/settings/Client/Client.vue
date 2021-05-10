@@ -58,7 +58,7 @@ export default {
 		return {
 			waterprintcolor:true,
             deviceprintcolor:true,
-			proto: this.$store.state.liveviewrtc,
+			proto: this.$store.state.clusterliveviewrtc,
 			watermarkstring:this.$store.state.watermarkstring,//水印、
 			watermarktoggle:this.$store.state.watermarktoggle,
 			devicemarktoggle:'',
@@ -106,7 +106,8 @@ export default {
             this.watermarktoggle = "block";
             var watermarktoggle=this.watermarktoggle;
 			localStorage.setItem("watermarktoggle",watermarktoggle);
-
+            this.$store.state.watermarkstring=this.watermarkstring
+            localStorage.setItem("watermarkstring",this.watermarkstring);
             this.addWaterMarker();
             this.$store.state.watermarktoggle="block";
             // document.getElementById("watermarktoggle").style.display=this.watermarktoggle;
@@ -135,6 +136,10 @@ export default {
         },
 
         addWaterMarker(){
+            this.$message({
+                    message: '水印已打开',
+                    type: 'success'
+                });
 			if(!document.getElementById("watermarktoggle")){
 				return
 			}
@@ -165,14 +170,14 @@ export default {
 		changeWS(event) {
             this.proto = "WS";
 			var proto=this.proto;
-			this.$store.state.liveviewrtc=proto
-			localStorage.setItem("liveviewrtc",proto);
+			this.$store.state.clusterliveviewrtc=proto
+			localStorage.setItem("clusterliveviewrtc",proto);
         },
         changeRTC(event) {
             this.proto = "RTC";
             var proto=this.proto;
-            this.$store.state.liveviewrtc=proto
-            localStorage.setItem("liveviewrtc",proto);
+            this.$store.state.clusterliveviewrtc=proto
+            localStorage.setItem("clusterliveviewrtc",proto);
         },
 	}
 }
